@@ -2,6 +2,17 @@
 
 The Data Liquidity Module (DLM) facilitates Web 3.0 data liquidity with Fetch.AI and Ocean Protocol.
 
+## Usage
+
+Start an Ocean Node, setting any relevant configs as normal in `dlm/ocean_config.ini`.
+
+Configure Ocean:
+```
+cd dlm
+./prep_ocean.sh
+```
+
+
 ## Components
 
 1. Data onboarding from Ocean to Fetch at a small surcharge to cover the computation cost.
