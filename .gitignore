@@ -1,5 +1,7 @@
+
 dist
 dlm.egg-info
+nodes/fetch_node
+nodes/ocean_node
 **/__pycache__
 **/.DS_Store
-dlm/artifacts
