@@ -9,7 +9,7 @@ from squid_py import (
 )
 
 
-ConfigProvider.set_config(Config('ocean_config.ini'))
+ConfigProvider.set_config(Config('config.ini'))
 # Make a new instance of Ocean
 ocean = Ocean()
 config = ConfigProvider.get_config()
