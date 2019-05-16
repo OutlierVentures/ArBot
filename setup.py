@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='dlm',
     version='0.0.1',
-    description='Data Liquidity Module: Web 3.0 data liquidity with Fetch.AI and Ocean Protocol.',
+    description='Data Liquidity Module: Web 3.0 data liquidity with Fetch.AI and Ocean Protocol. Requires a running Ocean Protocol and Fetch.AI node.',
     license='Apache License 2.0',
     packages=['dlm'],
     install_requires=['oef', 'fetchai-ledger-api', 'squid-py'],
