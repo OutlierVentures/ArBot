@@ -1,4 +1,7 @@
 from squid_py import Ocean, ConfigProvider, Config
+from dlm.utils import Utils
+import datetime
+
 
 class OceanAgent(Ocean):
 
@@ -11,10 +14,34 @@ class OceanAgent(Ocean):
     def get_account(self):
         return self.accounts.list()[0]
 
+    def publish(self, name, description, price, url, license, tags = ['outlier ventures']):
+        account = self.get_account()
+        metadata = {
+            "base": {
+                "name": name,
+                "dateCreated": Utils.get_time(),    
+                "author": str(account),
+                "license": license,
+                "price": price,
+                "files": [
+                    {
+                        "index": 0,
+                        "checksum": Utils.get_remote_hash(url),
+                        "checksumType": "SHA-256",
+                        "url": url
+                    }
+                ],
+                "tags": tags,
+                "type": "dataset",
+                "description": description
+            }
+        }
+        ddo = self.assets.create(metadata, account)
+        return ddo
+
     def search(self, terms):
         return self.assets.search(terms)
-
+    
 
 if __name__ == "__main__":
     oa = OceanAgent('./config.ini')
-    print(oa.search('Ocean protocol'))
