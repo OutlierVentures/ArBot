@@ -1,0 +1,26 @@
+{
+    "base": {
+        "name": "Iris Dataset",
+        "dateCreated": "1936-09-01T00:00:00Z",    
+        "author": "Ronald Fisher",
+        "license": "CC0: Public Domain",
+        "price": 0,
+        "files": [
+            {
+            "index": 0,
+            "contentType": "text/csv",
+            "checksum": "46F8E74CE969DDAB9D4896954E18F331783B3FD5331C644B27DC39279E1BF4E7",
+            "checksumType": "SHA3-256",
+            "contentLength": 4753,
+            "url": "https://datahub.io/machine-learning/iris/r/iris.csv"
+            }
+        ],
+        "tags": [
+            "flowers",
+            "classification",
+            "plants"
+        ],
+        "type": "dataset",
+        "description": "Multivariate Iris flower dataset for linear discriminant analysis."
+    }
+}
