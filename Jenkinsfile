@@ -33,7 +33,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh "pytest --ignore=test/test_ocean.py"
-                sh "cd node && ./stop_nodes.sh"
+                sh "cd nodes && ./stop_nodes.sh"
             }  
         }
     
