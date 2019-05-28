@@ -3,7 +3,7 @@
 onred='\033[41m'
 ongreen='\033[42m'
 onyellow='\033[43m'
-endcolor="\033[0m"
+endcolor='\033[0m'
 
 # Handle errors
 set -e
@@ -20,11 +20,11 @@ else
     echo -e "${onyellow}Starting nodes for local testing...$endcolor"
 fi
 
-cd fetch_node
-#./oef-core-pluto-image/scripts/docker-run.sh -p 3333:3333 -d --
+cd oef-core
+./oef-core-image/scripts/docker-run.sh -p 3333:3333 -- &> /dev/null &
 
-cd ../ocean_node
-./start_ocean.sh --latest --no-pleuston --no-brizo --local-$ocean-node --force-pull &> /dev/null &
+cd ../barge
+./start_ocean.sh --latest --no-pleuston --no-brizo --local-$ocean-node --force-pull &
 
 while [ $id!="" ]; do
     id=$(docker container ls | grep ocean_ | awk '{print $1}')
