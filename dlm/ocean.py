@@ -40,7 +40,21 @@ class OceanAgent(Ocean):
         return ddo
 
     def search(self, terms):
-        return self.assets.search(terms)
+        list_of_ddos = self.assets.search(terms)
+        return list_of_ddos
+    
+    def consume(self, ddo):
+        service_agreement_id = self.assets.order(ddo.did, 0, self.get_account())
+        path_to_data = ''
+        attempts = 0
+        while not os.path.exists(path_to_data) and attempts < 10:
+            try:
+                path_to_data = os.path.join(ConfigProvider.get_config().downloads_path, f'datafile.{ddo.asset_id}.0')
+            except:
+                attempts += 1
+                time.sleep(1)
+        return os.listdir(path_to_data), service_agreement_id
+
     
 
 if __name__ == "__main__":
