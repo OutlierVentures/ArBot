@@ -23,3 +23,9 @@ def test_publish():
 def test_search():
     assert oa.search(test_time) != []
     assert oa.search('iris') != []
+
+def test_consume():
+    ddo = oa.search(test_time)[0]
+    #oa.accounts.request_tokens(account, 10)
+    path_to_data, _ = oa.consume(ddo)
+    assert os.path.exists(path_to_data)
