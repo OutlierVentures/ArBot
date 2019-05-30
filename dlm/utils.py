@@ -25,4 +25,8 @@ class Utils:
         with open(path) as infile:
             data = json.load(infile)
         return data
+    
+    def write_json(data, path):
+        with open(path, 'w') as outfile:
+            json.dump(data, outfile)
 
