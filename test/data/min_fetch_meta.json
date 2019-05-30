@@ -1,0 +1,11 @@
+{
+    "base": {
+        "name": "Iris Dataset",
+        "description": "Multivariate Iris flower dataset for linear discriminant analysis.",
+        "tags": [
+            "flowers",
+            "classification",
+            "plants"
+        ]
+    }
+}
