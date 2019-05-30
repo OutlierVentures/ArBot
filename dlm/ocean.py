@@ -54,6 +54,14 @@ class OceanAgent(Ocean):
                 attempts += 1
                 time.sleep(1)
         return os.listdir(path_to_data), service_agreement_id
+    
+    # Note curation data may be of use here in future
+    def get_meta_from_ddo(self, ddo):
+        for item in ddo._services:
+            if item._type == 'Metadata':
+                return item._values['metadata']
+        return {}
+
 
 
 if __name__ == '__main__':
