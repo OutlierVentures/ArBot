@@ -55,7 +55,6 @@ class OceanAgent(Ocean):
                 time.sleep(1)
         return os.listdir(path_to_data), service_agreement_id
 
-    
 
 if __name__ == "__main__":
     oa = OceanAgent('./config.ini')
