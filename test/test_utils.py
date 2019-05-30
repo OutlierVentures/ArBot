@@ -16,5 +16,10 @@ def test_load_json():
     loaded_json = ut.load_json('./test/data/iris_meta.json')
     assert 'base' in loaded_json
 
-
-
+def test_write_json():
+    temp_path = './test/data/temp.json'
+    ut.write_json({'key': 'value'}, temp_path)
+    assert os.path.exists(temp_path)
+    loaded_json = ut.load_json(temp_path)
+    assert 'key' in loaded_json
+    os.remove(temp_path)
