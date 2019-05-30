@@ -1,6 +1,7 @@
 from datetime import datetime
 from urllib.request import urlopen
 from hashlib import sha256
+import json
 
 class Utils:
 
@@ -19,3 +20,9 @@ class Utils:
                 break
             hash.update(data)
         return hash.hexdigest()
+    
+    def load_json(path):
+        with open(path) as infile:
+            data = json.load(infile)
+        return data
+
