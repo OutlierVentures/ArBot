@@ -1,4 +1,5 @@
 from dlm.utils import Utils
+import os
 
 ut = Utils
 
@@ -10,3 +11,10 @@ def test_get_time():
 def test_get_remote_hash():
     hash = ut.get_remote_hash('https://datahub.io/machine-learning/iris/r/iris.csv')
     assert hash == '69a2774d46b2c322afba26d54109f90ffeeac617b0f771a168d696e66059da6c'
+
+def test_load_json():
+    loaded_json = ut.load_json('./test/data/iris_meta.json')
+    assert 'base' in loaded_json
+
+
+
