@@ -1,6 +1,6 @@
 from squid_py import Ocean, ConfigProvider, Config
 from dlm.utils import Utils
-import datetime
+import datetime, os
 
 
 class OceanAgent(Ocean):
@@ -17,23 +17,23 @@ class OceanAgent(Ocean):
     def publish(self, name, description, price, url, license, tags = ['outlier ventures']):
         account = self.get_account()
         metadata = {
-            "base": {
-                "name": name,
-                "dateCreated": Utils.get_time(),    
-                "author": str(account),
-                "license": license,
-                "price": price,
-                "files": [
+            'base': {
+                'name': name,
+                'dateCreated': Utils.get_time(),    
+                'author': str(account),
+                'license': license,
+                'price': price,
+                'files': [
                     {
-                        "index": 0,
-                        "checksum": Utils.get_remote_hash(url),
-                        "checksumType": "SHA-256",
-                        "url": url
+                        'index': 0,
+                        'checksum': Utils.get_remote_hash(url),
+                        'checksumType': 'SHA-256',
+                        'url': url
                     }
                 ],
-                "tags": tags,
-                "type": "dataset",
-                "description": description
+                'tags': tags,
+                'type': 'dataset',
+                'description': description
             }
         }
         ddo = self.assets.create(metadata, account)
@@ -56,5 +56,5 @@ class OceanAgent(Ocean):
         return os.listdir(path_to_data), service_agreement_id
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     oa = OceanAgent('./config.ini')
