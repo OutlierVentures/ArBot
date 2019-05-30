@@ -1,4 +1,5 @@
-import os, sys
+import os
+import time
 
 from squid_py import (
     Ocean,
@@ -7,7 +8,6 @@ from squid_py import (
     Metadata,
     Account
 )
-
 
 ConfigProvider.set_config(Config('config.ini'))
 # Make a new instance of Ocean
