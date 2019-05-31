@@ -1,8 +1,8 @@
 <p align="center">
     <img src="./img/dlm_logo.png" width="200" />
+    The Data Liquidity Module (DLM) facilitates Web 3.0<br>data liquidity with Fetch.AI and Ocean Protocol.
 </p>
 
-The Data Liquidity Module (DLM) facilitates Web 3.0 data liquidity with Fetch.AI and Ocean Protocol.
 
 ## Usage
 
