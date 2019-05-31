@@ -1,4 +1,6 @@
-# Data Liquidity Module
+<p align="center">
+    <img src="./img/dlm_logo.png" width="200" />
+</p>
 
 The Data Liquidity Module (DLM) facilitates Web 3.0 data liquidity with Fetch.AI and Ocean Protocol.
 
@@ -22,7 +24,9 @@ These need to be run from the `nodes` folder.
 1. DLMAgent: Data onboarding from Ocean to Fetch at a small surcharge to cover the computation cost.
 2. ArBot: Automated triangular arbitrage with Fetch.AI tokens, Ocean tokens and data. The software would execute in cases where the highest bidder on Fetch pays more than the lowest cost of the dataset on Ocean.
 
-![Stack diagram](/img/dlm_stack.png)
+<p align="center">
+    <img src="./img/dlm_stack.png" width="550" />
+</p>
 
 ## Overview
 
