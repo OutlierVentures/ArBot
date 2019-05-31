@@ -19,8 +19,10 @@ These need to be run from the `nodes` folder.
 
 ## Components
 
-1. Data onboarding from Ocean to Fetch at a small surcharge to cover the computation cost.
-2. Automated triangular arbitrage with Fetch.AI tokens, Ocean tokens and data. The software would execute in cases where the highest bidder on Fetch pays more than the lowest cost of the dataset on Ocean.
+1. DLMAgent: Data onboarding from Ocean to Fetch at a small surcharge to cover the computation cost.
+2. ArBot: Automated triangular arbitrage with Fetch.AI tokens, Ocean tokens and data. The software would execute in cases where the highest bidder on Fetch pays more than the lowest cost of the dataset on Ocean.
+
+![Stack diagram](/img/dlm_stack.png)
 
 ## Overview
 
