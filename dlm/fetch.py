@@ -20,16 +20,18 @@ class FetchAgent(OEFAgent):
         dataset_info = metadata['base']
         attributes = description = {}
         for item in dataset_info['tags']:
-            attributes[item] = 'Tagged: ' + item
-            description[item] = True
+            attributes[item] = description[item] = 'Tagged: ' + item
         attribute_list = []
         for key, value in attributes.items():
-            attribute_list.append(AttributeSchema(key, bool, False, value))
+            attribute_list.append(AttributeSchema(key, str, False, value))
         data_model = DataModel(dataset_info['name'], attribute_list, dataset_info['description'])
         service = Description(description, data_model)
         with open(path_to_data) as infile:
             data = json.load(infile)
         return service, data
+
+    def publish(self, service):
+        self.register_service(0, service)
 
     '''
     def on_cfp(self, msg_id: int, dialogue_id: int, origin: str, target: int, query: CFP_TYPES):
@@ -52,9 +54,23 @@ class FetchAgent(OEFAgent):
 
 
 if __name__ == '__main__':
-    agent = FetchAgent('OV_DLM', oef_addr = '127.0.0.1', oef_port = 3333)
+    meta = {
+        'base': {
+            'name': 'Iris Dataset',
+            'description': 'Multivariate Iris flower dataset for linear discriminant analysis.',
+            'tags': [
+                'flowers',
+                'classification',
+                'plants'
+            ]
+        }
+    }
+    data_path = './test/data/iris_meta.json'
+
+    agent = FetchAgent('OV_DLM', oef_addr = '127.0.0.1', oef_port = 3333, metadata = meta, path_to_data = data_path)
     agent.connect()
-    #agent.register_service(0, agent.service)
+    agent.register_service(0, agent.service)
+    print('service offered')
     try:
         agent.run()
     finally:
