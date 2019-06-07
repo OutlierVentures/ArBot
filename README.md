@@ -21,6 +21,23 @@ Then use any of the following as appropriate:
 ```
 These need to be run from the `nodes` folder.
 
+To use the Fetch-side functions:
+```python
+from dlm.fetch import FetchAgent
+fa = FetchAgent([AGENT_NAME], [NETWORK], [PORT], [METADATA], [DATAPATH], [PRICE])
+```
+
+To use the Ocean-side functions:
+```python
+from dlm.fetch import OceanAgent
+oa = OceanAgent([PATH_TO_CONFIG])
+```
+
+To use utility functions:
+```python
+from dlm.utils import Utils
+ut = Utils
+```
 
 ## Components
 
