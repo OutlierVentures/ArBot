@@ -15,6 +15,8 @@ meta = {
     }
 }
 data_path = './test/data/iris_meta.json'
+mock_counterparty = 'alice'
+
 fa = FetchAgent('TestAgent', '127.0.0.1', 3333, meta, data_path, 0)
 
 def test_load_service():
@@ -32,15 +34,19 @@ def test_publish():
 
 def test_on_cfp():
     fa.connect()
-    fa.on_cfp(0, 0, 'mockbuyer', 0)
+    fa.on_cfp(0, 0, mock_counterparty, 0)
     fa.disconnect()
 
 def test_on_accept():
     fa.connect()
-    fa.on_accept(2, 0, 'mockbuyer', 2)
+    fa.on_accept(2, 0, mock_counterparty, 2)
     fa.disconnect()
 
 def test_on_decline():
-    fa.connect()
-    fa.on_decline(2, 0, 'mockbuyer', 2)
-    fa.disconnect()
+    fa.on_decline(2, 0, mock_counterparty, 2)
+
+def test_on_decline():
+    fa.on_decline(2, 0, mock_counterparty, 2)
+
+
+    
