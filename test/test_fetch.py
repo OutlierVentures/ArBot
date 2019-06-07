@@ -39,3 +39,8 @@ def test_on_accept():
     fa.connect()
     fa.on_accept(2, 0, 'mockbuyer', 2)
     fa.disconnect()
+
+def test_on_decline():
+    fa.connect()
+    fa.on_decline(2, 0, 'mockbuyer', 2)
+    fa.disconnect()
