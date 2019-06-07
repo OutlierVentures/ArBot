@@ -2,7 +2,7 @@
 from dlm.fetch import FetchAgent
 from oef.schema import Description
 from oef.query import Query
-import pytest
+import pytest, json
 
 meta = {
     'base': {
@@ -35,6 +35,10 @@ def test_load_service():
     with pytest.raises(KeyError):
         fa.load_service({'not': 'valid'}, '/')
 
+def test_on_message():
+    dict_from_bytes_sent = fa.on_message(0, 0, mock_counterparty, json.dumps(meta).encode('utf-8'))
+    assert dict_from_bytes_sent == meta
+
 @online
 def test_publish():
     service, _ = fa.load_service(meta, data_path)
@@ -61,7 +65,7 @@ def test_on_propose():
     # First argument is maximum price for accept
     accepted = fa.on_propose(0, 0, 0, mock_counterparty, 0, [Description({'price': 0})])
     assert accepted == True
-    accepted = fa.on_propose(0, 1, 1, mock_counterparty, 0, [Description({'price': 1})])
+    accepted = fa.on_propose(0, 1, 0, mock_counterparty, 0, [Description({'price': 1})])
     assert accepted == False
 
     
