@@ -1,3 +1,4 @@
+# Note Fetch's excellent underlying error handling
 from dlm.fetch import FetchAgent
 from oef.schema import Description
 from oef.query import Query
@@ -45,9 +46,7 @@ def test_on_cfp():
 
 @online
 def test_on_accept():
-    fa.connect()
     fa.on_accept(2, 0, mock_counterparty, 2)
-    fa.disconnect()
 
 def test_on_decline():
     fa.on_decline(2, 0, mock_counterparty, 2)
@@ -55,6 +54,10 @@ def test_on_decline():
 def test_on_decline():
     fa.on_decline(2, 0, mock_counterparty, 2)
 
+@online
+def test_on_search_result():
+    fa.on_search_result(0, [mock_counterparty, 'bob'])
+    fa.on_search_result(1, [])
 
 
     
