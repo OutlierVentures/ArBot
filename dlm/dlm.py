@@ -1,3 +1,9 @@
+'''
+This is an Ocean Protocol reference doc.
+It will be dropped in the near future in favour of ocean.py.
+'''
+
+
 import os
 import time
 
