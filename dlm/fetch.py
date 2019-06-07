@@ -33,8 +33,14 @@ class FetchAgent(OEFAgent):
 
     def publish(self, service):
         self.register_service(0, service)
-
     
+    def on_message(self, msg_id: int, dialogue_id: int, origin: str, content: bytes):
+        data = json.loads(content.decode('utf-8'))
+        print('[{0}]: Received measurement from {1}: {2}'.format(self.public_key, origin, data))
+        self.stop()
+        return data
+
+
     '''
     PROVIDER FUNCTIONS
     '''
@@ -86,6 +92,7 @@ class FetchAgent(OEFAgent):
         self.send_accept(msg_id, dialogue_id, origin, msg_id + 1)
         self.stop()
         return True
+
 
 
 if __name__ == '__main__':
