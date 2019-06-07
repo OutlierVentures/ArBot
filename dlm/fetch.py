@@ -47,12 +47,9 @@ class FetchAgent(OEFAgent):
         self.send_message(0, dialogue_id, origin, encoded_data)
         self.stop()
 
-    '''
-
     def on_decline(self, msg_id: int, dialogue_id: int, origin: str, target: int):
         print('[{0}]: Received decline from {1}.'.format(self.public_key, origin))
         self.stop()
-    '''
 
 
 if __name__ == '__main__':
