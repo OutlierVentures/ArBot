@@ -1,6 +1,6 @@
 from oef.agents import OEFAgent
 from oef.schema import AttributeSchema, DataModel, Description
-from oef.messages import CFP_TYPES
+from oef.messages import CFP_TYPES, PROPOSE_TYPES
 from typing import List
 import json
 
@@ -73,7 +73,20 @@ class FetchAgent(OEFAgent):
             query = None
             self.send_cfp(1, 0, agent, 0, query)
     
-    
+    def on_propose(self, max_price: int, msg_id: int, dialogue_id: int, origin: str, target: int, proposals: PROPOSE_TYPES) -> bool:
+        print('[{0}]: Received propose from agent {1}'.format(self.public_key, origin))
+        for i, p in enumerate(proposals):
+            print('[{0}]: Proposal {1}: {2}'.format(self.public_key, i, p.values))
+            if abs(int(p.values['price'])) > max_price:
+                print('[{0}]: Declining Propose.'.format(self.public_key))
+                self.send_decline(msg_id, dialogue_id, origin, msg_id + 1)
+                self.stop()
+                return False
+        print('[{0}]: Accepting Propose.'.format(self.public_key))
+        self.send_accept(msg_id, dialogue_id, origin, msg_id + 1)
+        self.stop()
+        return True
+
 
 if __name__ == '__main__':
 
