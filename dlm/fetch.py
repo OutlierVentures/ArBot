@@ -34,18 +34,10 @@ class FetchAgent(OEFAgent):
         self.register_service(0, service)
 
     
-    def on_cfp(self, msg_id: int, dialogue_id: int, origin: str, target: int, query: CFP_TYPES):
+    def on_cfp(self, msg_id: int, dialogue_id: int, origin: str, target: int):
         print('[{0}]: Received CFP from {1}'.format(self.public_key, origin))
         proposal = Description({'price': self.price})
         print('[{}]: Sending propose at price: {}'.format(self.public_key, self.price))
-        self.send_propose(msg_id + 1, dialogue_id, origin, target + 1, [proposal])
-    '''
-    def on_cfp(self, msg_id: int, dialogue_id: int, origin: str, target: int, query: CFP_TYPES):
-        """Send a simple Propose to the sender of the CFP."""
-        print("[{0}]: Received CFP from {1}".format(self.public_key, origin))
-
-        #data = self.get_latest(0)
-        proposal = Description({"data" : True})
         self.send_propose(msg_id + 1, dialogue_id, origin, target + 1, [proposal])
 
     def on_accept(self, msg_id: int, dialogue_id: int, origin: str, target: int):
@@ -54,6 +46,8 @@ class FetchAgent(OEFAgent):
         print('[{0}]: Sending data to {1}: {2}'.format(self.public_key, origin, self.data))
         self.send_message(0, dialogue_id, origin, encoded_data)
         self.stop()
+
+    '''
 
     def on_decline(self, msg_id: int, dialogue_id: int, origin: str, target: int):
         print('[{0}]: Received decline from {1}.'.format(self.public_key, origin))
