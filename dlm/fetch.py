@@ -1,6 +1,7 @@
 from oef.agents import OEFAgent
 from oef.schema import AttributeSchema, DataModel, Description
 from oef.messages import CFP_TYPES
+from typing import List
 import json
 
 
@@ -34,6 +35,10 @@ class FetchAgent(OEFAgent):
         self.register_service(0, service)
 
     
+    '''
+    PROVIDER FUNCTIONS
+    '''
+
     def on_cfp(self, msg_id: int, dialogue_id: int, origin: str, target: int):
         print('[{0}]: Received CFP from {1}'.format(self.public_key, origin))
         proposal = Description({'price': self.price})
@@ -51,6 +56,24 @@ class FetchAgent(OEFAgent):
         print('[{0}]: Received decline from {1}.'.format(self.public_key, origin))
         self.stop()
 
+
+    '''
+    CONSUMER FUNCTIONS
+    '''
+
+    def on_search_result(self, search_id: int, agents: List[str]):
+        if len(agents) == 0:
+            print('[{}]: No agent found. Stopping...'.format(self.public_key))
+            self.stop()
+            return
+        print('[{0}]: Agent found: {1}'.format(self.public_key, agents))
+        # 'None' query returns all the resources the prover can propose.
+        for agent in agents:
+            print('[{0}]: Sending to agent {1}'.format(self.public_key, agent))
+            query = None
+            self.send_cfp(1, 0, agent, 0, query)
+    
+    
 
 if __name__ == '__main__':
 
