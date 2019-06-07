@@ -47,3 +47,9 @@ To encourage data liquidity in the Convergence Stack, the DLM offers select data
 
 Different hosts of the DLM will likely be competing to execute the data arbitrage opportunities. More successful instances would be characterised by fast execution speed and an improved matching engine.
 
+## Debugging
+
+Run `pytest` with both nodes running to test. 
+
+`secret_store_client.client.RPCError: Failed to generate server key: Bad Gateway`: the Ocean node is still spinning up. Wait a few minutes.
+
