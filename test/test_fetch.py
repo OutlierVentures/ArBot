@@ -51,13 +51,17 @@ def test_on_accept():
 def test_on_decline():
     fa.on_decline(2, 0, mock_counterparty, 2)
 
-def test_on_decline():
-    fa.on_decline(2, 0, mock_counterparty, 2)
-
 @online
 def test_on_search_result():
     fa.on_search_result(0, [mock_counterparty, 'bob'])
     fa.on_search_result(1, [])
 
+@online
+def test_on_propose():
+    # First argument is maximum price for accept
+    accepted = fa.on_propose(0, 0, 0, mock_counterparty, 0, [Description({'price': 0})])
+    assert accepted == True
+    accepted = fa.on_propose(0, 1, 1, mock_counterparty, 0, [Description({'price': 1})])
+    assert accepted == False
 
     
