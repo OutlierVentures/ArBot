@@ -29,3 +29,8 @@ def test_publish():
     fa.connect()
     fa.publish(service)
     fa.disconnect()
+
+def test_on_cfp():
+    fa.connect()
+    fa.on_cfp(0, 0, 'mockbuyer', 0, Query)
+    fa.disconnect()
