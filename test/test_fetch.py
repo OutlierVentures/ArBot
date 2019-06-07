@@ -1,8 +1,7 @@
 from dlm.fetch import FetchAgent
 from oef.schema import Description
+from oef.query import Query
 import pytest
-
-fa = FetchAgent('TestAgent', '127.0.0.1', 3333)
 
 meta = {
     'base': {
@@ -16,6 +15,7 @@ meta = {
     }
 }
 data_path = './test/data/iris_meta.json'
+fa = FetchAgent('TestAgent', '127.0.0.1', 3333, meta, data_path, 0)
 
 def test_load_service():
     service, data = fa.load_service(meta, data_path)
