@@ -53,6 +53,7 @@ class FetchAgent(OEFAgent):
 
 
 if __name__ == '__main__':
+
     meta = {
         'base': {
             'name': 'Iris Dataset',
@@ -69,7 +70,7 @@ if __name__ == '__main__':
     agent = FetchAgent('OV_DLM', oef_addr = '127.0.0.1', oef_port = 3333, metadata = meta, path_to_data = data_path)
     agent.connect()
     agent.register_service(0, agent.service)
-    print('service offered')
+    print('Service offered.')
     try:
         agent.run()
     finally:
