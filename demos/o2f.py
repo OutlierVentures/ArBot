@@ -1,5 +1,6 @@
 '''
 This demo shows an example flow of data liquidity: Ocean to Fetch.
+Spin this up, then spin the Fetch to Ocean demo up for a full flow Ocean -> Fetch -> Ocean.
 '''
 
 from dlm.ocean import OceanAgent
@@ -25,7 +26,7 @@ ddo = list_of_ddos[0]
 path_to_data = '../test/data/iris.json'
 
 # Spin up a Fetch agent with our dataset.
-fa = FetchAgent('OV_DLM', oef_addr = '127.0.0.1', oef_port = 3333, metadata = oa.get_meta_from_ddo(ddo), path_to_data = path_to_data)
+fa = FetchAgent('Provider', oef_addr = '127.0.0.1', oef_port = 3333, metadata = oa.get_meta_from_ddo(ddo), path_to_data = path_to_data)
 fa.connect()
 
 # Publish to Fetch's OEF.
