@@ -39,11 +39,17 @@ from dlm.utils import Utils
 ut = Utils
 ```
 
-See the `demo` folder for some super simple examples. Note that Fetch-side publishing demands JSON-formatted sets.
+See the `demo` folder for some super simple examples. For a full Ocean -> Fetch -> Ocean flow, run both, `o2f.py` first:
+```
+python3 o2f.py
+python3 f2o.py
+```
+
+Note that Fetch-side publishing demands JSON-formatted sets.
 
 ## Components
 
-1. DLMAgent: Data onboarding from Ocean to Fetch at a small surcharge to cover the computation cost.
+1. DLMAgents: Data onboarding from Ocean to Fetch at a small surcharge to cover the computation cost.
 2. ArBot: Automated triangular arbitrage with Fetch.AI tokens, Ocean tokens and data. The software would execute in cases where the highest bidder on Fetch pays more than the lowest cost of the dataset on Ocean.
 
 <p align="center">
