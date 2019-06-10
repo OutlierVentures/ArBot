@@ -41,8 +41,7 @@ def test_on_message():
 
 @online
 def test_publish():
-    service, _ = fa.load_service(meta, data_path)
-    fa.publish(service)
+    fa.publish(fa.service)
 
 @online
 def test_on_cfp():
