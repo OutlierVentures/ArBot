@@ -37,6 +37,9 @@ class OceanAgent(Ocean):
             }
         }
         ddo = self.assets.create(metadata, account)
+        # Ensure asset registered successfully before returning
+        registered_ddo = self.assets.resolve(ddo.did)
+        assert ddo.did == registered_ddo.did
         return ddo
 
     def search(self, terms):
