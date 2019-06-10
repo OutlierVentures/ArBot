@@ -39,6 +39,8 @@ from dlm.utils import Utils
 ut = Utils
 ```
 
+See the `demo` folder for some super simple examples. Note that Fetch-side publishing demands JSON-formatted sets.
+
 ## Components
 
 1. DLMAgent: Data onboarding from Ocean to Fetch at a small surcharge to cover the computation cost.
