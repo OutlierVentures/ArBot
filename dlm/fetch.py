@@ -1,6 +1,7 @@
 from oef.agents import OEFAgent
 from oef.schema import AttributeSchema, DataModel, Description
 from oef.messages import CFP_TYPES, PROPOSE_TYPES
+from oef.query import Query, Constraint, NotEq
 from typing import List
 import json
 
@@ -31,8 +32,8 @@ class FetchAgent(OEFAgent):
             data = json.load(infile)
         return service, data
 
-    def publish(self, service):
-        self.register_service(0, service)
+    def publish(self):
+        self.register_service(0, self.service)
     
     def on_message(self, msg_id: int, dialogue_id: int, origin: str, content: bytes):
         data = json.loads(content.decode('utf-8'))
@@ -45,7 +46,7 @@ class FetchAgent(OEFAgent):
     PROVIDER FUNCTIONS
     '''
 
-    def on_cfp(self, msg_id: int, dialogue_id: int, origin: str, target: int):
+    def on_cfp(self, msg_id: int, dialogue_id: int, origin: str, target: int, query: CFP_TYPES):
         print('[{0}]: Received CFP from {1}'.format(self.public_key, origin))
         proposal = Description({'price': self.price})
         print('[{}]: Sending propose at price: {}'.format(self.public_key, self.price))
@@ -66,6 +67,14 @@ class FetchAgent(OEFAgent):
     '''
     CONSUMER FUNCTIONS
     '''
+
+    def search(self, terms_string):
+        search_terms = terms_string.split(' ')
+        query_array = []
+        for term in search_terms:
+            query_array.append(Constraint(term, NotEq(None)))
+        query = Query(query_array)
+        self.search_services(0, query)
 
     def on_search_result(self, search_id: int, agents: List[str]):
         if len(agents) == 0:
@@ -108,11 +117,11 @@ if __name__ == '__main__':
             ]
         }
     }
-    data_path = './test/data/iris_meta.json'
+    data_path = '../test/data/iris.json'
 
     agent = FetchAgent('OV_DLM', oef_addr = '127.0.0.1', oef_port = 3333, metadata = meta, path_to_data = data_path)
     agent.connect()
-    agent.register_service(0, agent.service)
+    agent.publish()
     print('Service offered.')
     try:
         agent.run()
