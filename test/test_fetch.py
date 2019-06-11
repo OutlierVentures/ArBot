@@ -1,7 +1,8 @@
-# Note Fetch's excellent underlying error handling
+# See Fetch's excellent underlying error handling
 from dlm.fetch import FetchAgent
 from oef.schema import Description
 from oef.query import Query
+from unittest.mock import MagicMock
 import pytest, json
 
 meta = {
@@ -41,11 +42,11 @@ def test_on_message():
 
 @online
 def test_publish():
-    fa.publish(fa.service)
+    fa.publish()
 
 @online
 def test_on_cfp():
-    fa.on_cfp(0, 0, mock_counterparty, 0)
+    fa.on_cfp(0, 0, mock_counterparty, 0, Query)
 
 @online
 def test_on_accept():
@@ -53,6 +54,17 @@ def test_on_accept():
 
 def test_on_decline():
     fa.on_decline(2, 0, mock_counterparty, 2)
+
+'''
+This is sufficint since it covers the flow within class FetchAgent and OEFProxy handles errors underneath.
+NOTE open to PRs writing a test that boots up fetch.py in a subshell and searches for that instance's service.
+This is not trivial since these are instance methods - see OEFProxy's on_propose().
+'''
+@online
+def test_search():
+    fa.search('flowers')
+    fa.on_search_result = MagicMock()
+    assert fa.on_search_result.assert_called
 
 @online
 def test_on_search_result():
