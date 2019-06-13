@@ -46,10 +46,28 @@ finally:
     fa.disconnect()
 ```
 
-To use the Ocean-side functions:
+### Fetch.AI to Ocean Protocol
+
 ```python
-from dlm.fetch import OceanAgent
-oa = OceanAgent([PATH_TO_CONFIG])
+from dlm.fetch import FetchAgent
+from dlm.ocean import OceanAgent
+
+fa = FetchAgent('Consumer', '127.0.0.1', 3333)
+fa.connect()
+fa.search('flowers', 0, 'desired/download/path.json')
+try:
+    fa.run()
+finally:
+    fa.stop()
+    fa.disconnect()
+
+oa = OceanAgent('path/to/config.ini')
+oa.publish('Iris Dataset',
+           'Multivariate Iris flower dataset for linear discriminant analysis.',
+           0,
+           'https://pkgstore.datahub.io/machine-learning/iris/iris_json/data/23a7b3de91da915b506f7ca23f6d1141/iris_json.json',
+           'CCO: Public Domain',
+           ['flowers', 'classification', 'plants'])
 ```
 
 To use utility functions:
