@@ -9,8 +9,9 @@ import json
 
 class FetchAgent(OEFAgent):
 
-    def __init__(self, public_key, oef_addr, oef_port, load_path = '', metadata = {}, price = 0):
+    def __init__(self, public_key, oef_addr, oef_port, save_path = '', load_path = '', metadata = {}, price = 0):
         OEFAgent.__init__(self, public_key, oef_addr, oef_port)
+        self.save_path = save_path
         if metadata != {} and load_path != '':
             try:
                 self.service, self.data = self.load_service(metadata, load_path)
@@ -38,6 +39,10 @@ class FetchAgent(OEFAgent):
     def on_message(self, msg_id: int, dialogue_id: int, origin: str, content: bytes):
         data = json.loads(content.decode('utf-8'))
         print('[{0}]: Received measurement from {1}: {2}'.format(self.public_key, origin, data))
+        # If we've specified that we want to be saving data, then save incoming data.
+        # Otherwise we can be bombarded at any time.
+        if self.save_path != '':
+            Utils.write_json(data, self.save_path)
         self.stop()
         return data
 
