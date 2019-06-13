@@ -1,9 +1,10 @@
-# See Fetch's excellent underlying error handling
+# If interested, take a look at Fetch's excellent underlying error handling
 from dlm.fetch import FetchAgent
 from oef.schema import Description
 from oef.query import Query
 from unittest.mock import MagicMock
-import pytest, json
+from typing import List
+import pytest, json, os
 
 meta = {
     'base': {
@@ -16,12 +17,13 @@ meta = {
         ]
     }
 }
-data_path = './test/data/iris_meta.json'
+data_path = './test/data/iris.json'
 mock_counterparty = 'alice'
 
 fa = FetchAgent(public_key = 'TestAgent',
                 oef_addr = '127.0.0.1',
                 oef_port = 3333,
+                save_path = './test/data/purchased.json',
                 load_path = data_path,
                 metadata = meta)
 
@@ -36,13 +38,15 @@ def online(function):
 def test_load_service():
     service, data = fa.load_service(meta, data_path)
     assert isinstance(service, Description)
-    assert isinstance(data, dict)
+    assert isinstance(data, (dict, List))
     with pytest.raises(KeyError):
         fa.load_service({'not': 'valid'}, '/')
 
 def test_on_message():
     dict_from_bytes_sent = fa.on_message(0, 0, mock_counterparty, json.dumps(meta).encode('utf-8'))
     assert dict_from_bytes_sent == meta
+    assert os.path.isfile(fa.save_path)
+    os.remove(fa.save_path)
 
 @online
 def test_publish():
