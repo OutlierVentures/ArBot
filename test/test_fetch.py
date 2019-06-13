@@ -52,6 +52,13 @@ def test_on_message():
 @online
 def test_publish():
     fa.publish()
+    '''
+    fa2 = FetchAgent('NoDataAgent', '127.0.0.1', 3333)
+    fa2.connect()
+    with pytest.raises(AttributeError):
+        fa2.publish()
+    fa2.disconnect()
+    '''
 
 @online
 def test_on_cfp():
