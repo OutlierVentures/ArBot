@@ -21,10 +21,29 @@ Then use any of the following as appropriate:
 ```
 These need to be run from the `nodes` folder.
 
-To use the Fetch-side functions:
+### Ocean Protocol to Fetch.AI
+
 ```python
+from dlm.ocean import OceanAgent
 from dlm.fetch import FetchAgent
-fa = FetchAgent([AGENT_NAME], [NETWORK], [PORT], [LOADPATH}, [METADATA], [PRICE])
+
+oa = OceanAgent('path/to/config.ini')
+list_of_ddos = oa.search('flowers')
+ddo = list_of_ddos[0]
+path_to_data, _ = oa.consume(ddo)
+
+fa = FetchAgent(public_key = 'Provider',
+                oef_addr = '127.0.0.1',
+                oef_port = 3333,
+                load_path = path_to_data,
+                metadata = oa.get_meta_from_ddo(ddo))
+fa.connect()
+fa.publish()
+try:
+    fa.run()
+finally:
+    fa.stop()
+    fa.disconnect()
 ```
 
 To use the Ocean-side functions:
