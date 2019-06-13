@@ -9,17 +9,17 @@ import json
 
 class FetchAgent(OEFAgent):
 
-    def __init__(self, public_key, oef_addr, oef_port, metadata = {}, save_path = '', price = 0):
+    def __init__(self, public_key, oef_addr, oef_port, load_path = '', metadata = {}, price = 0):
         OEFAgent.__init__(self, public_key, oef_addr, oef_port)
-        if metadata != {} and save_path != '':
+        if metadata != {} and load_path != '':
             try:
-                self.service, self.data = self.load_service(metadata, save_path)
+                self.service, self.data = self.load_service(metadata, load_path)
                 self.price = abs(int(price))
             except Exception as e:
                 print('Invalid dataset, metadata or price: ', e)
                 exit(1)
     
-    def load_service(self, metadata, save_path):
+    def load_service(self, metadata, load_path):
         dataset_info = metadata['base']
         attributes = description = {}
         for item in dataset_info['tags']:
@@ -29,7 +29,7 @@ class FetchAgent(OEFAgent):
             attribute_list.append(AttributeSchema(key, str, False, value))
         data_model = DataModel(dataset_info['name'], attribute_list, dataset_info['description'])
         service = Description(description, data_model)
-        data = Utils.load_json(save_path)
+        data = Utils.load_json(load_path)
         return service, data
 
     def publish(self):
@@ -119,7 +119,11 @@ if __name__ == '__main__':
     }
     data_path = '../test/data/iris.json'
 
-    agent = FetchAgent('OV_DLM', oef_addr = '127.0.0.1', oef_port = 3333, metadata = meta, save_path = data_path)
+    agent = FetchAgent(public_key = 'OVAgent',
+                       oef_addr = '127.0.0.1',
+                       oef_port = 3333,
+                       load_path = data_path,
+                       metadata = meta)
     agent.connect()
     agent.publish()
     print('Service offered.')

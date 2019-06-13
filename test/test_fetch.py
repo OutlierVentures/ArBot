@@ -19,7 +19,11 @@ meta = {
 data_path = './test/data/iris_meta.json'
 mock_counterparty = 'alice'
 
-fa = FetchAgent('TestAgent', '127.0.0.1', 3333, meta, data_path, 0)
+fa = FetchAgent(public_key = 'TestAgent',
+                oef_addr = '127.0.0.1',
+                oef_port = 3333,
+                load_path = data_path,
+                metadata = meta)
 
 # Higher-order helper for functions that need to be online
 def online(function):
