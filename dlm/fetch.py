@@ -2,6 +2,7 @@ from oef.agents import OEFAgent
 from oef.schema import AttributeSchema, DataModel, Description
 from oef.messages import CFP_TYPES, PROPOSE_TYPES
 from oef.query import Query, Constraint, NotEq
+from dlm.utils import Utils
 from typing import List
 import json
 
@@ -28,8 +29,7 @@ class FetchAgent(OEFAgent):
             attribute_list.append(AttributeSchema(key, str, False, value))
         data_model = DataModel(dataset_info['name'], attribute_list, dataset_info['description'])
         service = Description(description, data_model)
-        with open(save_path) as infile:
-            data = json.load(infile)
+        data = Utils.load_json(save_path)
         return service, data
 
     def publish(self):
