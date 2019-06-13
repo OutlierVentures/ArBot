@@ -14,12 +14,12 @@ class FetchAgent(OEFAgent):
         # These will be written to in search() specifying if we want to pull incoming OEF data
         self.purchase_price = 0
         self.save_path = ''
-        if metadata != {} and load_path != '':
+        if load_path != '' and metadata != {}:
             try:
                 self.service, self.data = self.load_service(metadata, load_path)
                 self.price = abs(int(price))
             except Exception as e:
-                print('Invalid dataset, metadata or price: ', e)
+                print('Invalid dataset, metadata or price:', e)
                 exit(1)
     
     def load_service(self, metadata, load_path):
@@ -39,12 +39,12 @@ class FetchAgent(OEFAgent):
         try:
             self.register_service(0, self.service)
         except Exception as e:
-            print('Agent has no data or metadata: ', e)
+            print('Agent has no data or metadata:', e)
 
     
     def on_message(self, msg_id: int, dialogue_id: int, origin: str, content: bytes):
         data = json.loads(content.decode('utf-8'))
-        print('[{0}]: Received measurement from {1}: {2}'.format(self.public_key, origin, data))
+        print('[{0}] R:eceived measurement from {1}: {2}'.format(self.public_key, origin, data))
         # If we've specified that we want to be saving data, then save incoming data.
         # Otherwise we can be bombarded at any time.
         if self.save_path != '':
