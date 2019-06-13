@@ -5,9 +5,11 @@ import json
 
 class Utils:
 
+    @staticmethod
     def get_time():
         return datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
+    @staticmethod
     def get_remote_hash(url):
         size_limit = 1024 * 1024 * 10
         remote = urlopen(url)
@@ -20,12 +22,14 @@ class Utils:
                 break
             hash.update(data)
         return hash.hexdigest()
-    
+
+    @staticmethod
     def load_json(path):
         with open(path) as infile:
             data = json.load(infile)
         return data
-    
+
+    @staticmethod
     def write_json(data, path):
         with open(path, 'w') as outfile:
             json.dump(data, outfile)
