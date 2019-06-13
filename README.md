@@ -24,7 +24,7 @@ These need to be run from the `nodes` folder.
 To use the Fetch-side functions:
 ```python
 from dlm.fetch import FetchAgent
-fa = FetchAgent([AGENT_NAME], [NETWORK], [PORT], [METADATA], [DATAPATH], [PRICE])
+fa = FetchAgent([AGENT_NAME], [NETWORK], [PORT], [LOADPATH}, [METADATA], [PRICE])
 ```
 
 To use the Ocean-side functions:
