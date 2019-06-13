@@ -128,16 +128,16 @@ if __name__ == '__main__':
     }
     data_path = '../test/data/iris.json'
 
-    agent = FetchAgent(public_key = 'OVAgent',
+    fa = FetchAgent(public_key = 'OVAgent',
                        oef_addr = '127.0.0.1',
                        oef_port = 3333,
                        load_path = data_path,
                        metadata = meta)
-    agent.connect()
-    agent.publish()
+    fa.connect()
+    fa.publish()
     print('Service offered.')
     try:
-        agent.run()
+        fa.run()
     finally:
-        agent.stop()
-        agent.disconnect()
+        fa.stop()
+        fa.disconnect()
