@@ -129,10 +129,10 @@ if __name__ == '__main__':
     data_path = '../test/data/iris.json'
 
     fa = FetchAgent(public_key = 'OVAgent',
-                       oef_addr = '127.0.0.1',
-                       oef_port = 3333,
-                       load_path = data_path,
-                       metadata = meta)
+                    oef_addr = '127.0.0.1',
+                    oef_port = 3333,
+                    load_path = data_path,
+                    metadata = meta)
     fa.connect()
     fa.publish()
     print('Service offered.')

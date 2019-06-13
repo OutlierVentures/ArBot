@@ -7,7 +7,6 @@ from dlm.ocean import OceanAgent
 from dlm.fetch import FetchAgent
 
 oa = OceanAgent('../dlm/config.ini')
-
 # Put the dataset on Ocean to start with. Skip this step and change search term below for existing sets.
 oa.publish('Iris Dataset',
            'Multivariate Iris flower dataset for linear discriminant analysis.',
