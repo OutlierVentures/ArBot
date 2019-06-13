@@ -9,9 +9,11 @@ import json
 
 class FetchAgent(OEFAgent):
 
-    def __init__(self, public_key, oef_addr, oef_port, save_path = '', load_path = '', metadata = {}, price = 0):
+    def __init__(self, public_key, oef_addr, oef_port, load_path = '', metadata = {}, price = 0):
         OEFAgent.__init__(self, public_key, oef_addr, oef_port)
-        self.save_path = save_path
+        # These will be written to in search() specifying if we want to pull incoming OEF data
+        self.purchase_price = 0
+        self.save_path = ''
         if metadata != {} and load_path != '':
             try:
                 self.service, self.data = self.load_service(metadata, load_path)
@@ -55,7 +57,7 @@ class FetchAgent(OEFAgent):
         print('[{0}]: Received CFP from {1}'.format(self.public_key, origin))
         proposal = Description({'price': self.price})
         print('[{}]: Sending propose at price: {}'.format(self.public_key, self.price))
-        self.send_propose(msg_id + 1, dialogue_id, origin, target + 1, [proposal])
+        self.send_propose(msg_id + 1, dialogue_id, origin, target + 1, proposals = [proposal])
 
     def on_accept(self, msg_id: int, dialogue_id: int, origin: str, target: int):
         print('[{0}]: Received accept from {1}.'.format(self.public_key, origin))
@@ -72,13 +74,15 @@ class FetchAgent(OEFAgent):
     '''
     CONSUMER FUNCTIONS
     '''
-
-    def search(self, terms_string):
-        search_terms = terms_string.split(' ')
+    # Add save path and max price here
+    def search(self, terms: str, max_price: int, save_path: str):
+        search_terms = terms.split(' ')
         query_array = []
         for term in search_terms:
             query_array.append(Constraint(term, NotEq(None)))
         query = Query(query_array)
+        self.purchase_price = abs(int(max_price))
+        self.save_path = save_path
         self.search_services(0, query)
 
     def on_search_result(self, search_id: int, agents: List[str]):
@@ -93,11 +97,11 @@ class FetchAgent(OEFAgent):
             query = None
             self.send_cfp(1, 0, agent, 0, query)
     
-    def on_propose(self, max_price: int, msg_id: int, dialogue_id: int, origin: str, target: int, proposals: PROPOSE_TYPES) -> bool:
+    def on_propose(self, msg_id: int, dialogue_id: int, origin: str, target: int, proposals: PROPOSE_TYPES) -> bool:
         print('[{0}]: Received propose from agent {1}'.format(self.public_key, origin))
         for i, p in enumerate(proposals):
             print('[{0}]: Proposal {1}: {2}'.format(self.public_key, i, p.values))
-            if abs(int(p.values['price'])) > max_price:
+            if abs(int(p.values['price'])) > self.purchase_price:
                 print('[{0}]: Declining Propose.'.format(self.public_key))
                 self.send_decline(msg_id, dialogue_id, origin, msg_id + 1)
                 self.stop()
