@@ -22,7 +22,7 @@ class OceanAgent(Ocean):
                 'dateCreated': Utils.get_time(),    
                 'author': str(account),
                 'license': license,
-                'price': str(price),
+                'price': str(abs(int(price))),
                 'files': [
                     {
                         'index': 0,
