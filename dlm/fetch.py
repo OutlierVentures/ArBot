@@ -36,7 +36,11 @@ class FetchAgent(OEFAgent):
         return service, data
 
     def publish(self):
-        self.register_service(0, self.service)
+        try:
+            self.register_service(0, self.service)
+        except Exception as e:
+            print('Agent has no data or metadata: ', e)
+
     
     def on_message(self, msg_id: int, dialogue_id: int, origin: str, content: bytes):
         data = json.loads(content.decode('utf-8'))
