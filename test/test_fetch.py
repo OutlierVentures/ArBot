@@ -64,7 +64,10 @@ def test_on_accept():
 def test_on_decline():
     fa.on_decline(2, 0, mock_counterparty, 2)
 
-# Note that the OEF module handles the negotiation testing underneath.
+'''
+Note that the OEF module handles the negotiation testing underneath.
+For an example negotiation take a look at the demo files o2f.py and f2o.py.
+'''
 @online
 def test_search():
     fa.search('flowers', 0, './test/data/purchased.json')
