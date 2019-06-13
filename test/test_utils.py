@@ -1,7 +1,7 @@
 from dlm.utils import Utils
 import os
 
-ut = Utils
+ut = Utils()
 
 def test_get_time():
     time = ut.get_time()

@@ -5,8 +5,7 @@ import pytest
 
 # Pytest is called from the root directory, so the path to config is from there
 oa = OceanAgent('./dlm/config.ini')
-ut = Utils
-test_time = ut.get_time()
+test_time = Utils.get_time()
 
 def test_get_account():
     assert len(oa.get_account().__dict__) == 2
