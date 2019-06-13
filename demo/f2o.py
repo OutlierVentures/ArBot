@@ -6,6 +6,19 @@ Spin the Ocean to Fetch demo up then run this one for a full flow Ocean -> Fetch
 from dlm.fetch import FetchAgent
 from dlm.ocean import OceanAgent
 
-# Spin up a plain FetchAgent (not holding a dataset).
-fa = FetchAgent('Consumer', oef_addr = '127.0.0.1', oef_port = 3333)
+fa = FetchAgent('Consumer', '127.0.0.1', 3333)
+fa.connect()
+fa.search('flowers', 0, './purchased.json')
+try:
+    fa.run()
+finally:
+    fa.stop()
+    fa.disconnect()
 
+oa = OceanAgent('../dlm/config.ini')
+oa.publish('Iris Dataset',
+           'Multivariate Iris flower dataset for linear discriminant analysis.',
+           0,
+           'https://pkgstore.datahub.io/machine-learning/iris/iris_json/data/23a7b3de91da915b506f7ca23f6d1141/iris_json.json',
+           'CCO: Public Domain',
+           ['flowers', 'classification', 'plants'])
