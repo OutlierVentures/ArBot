@@ -26,7 +26,6 @@ def test_search():
     print(oa.search(test_time)[0]._services[0].__dict__, oa.search(test_time)[0]._services[1].__dict__, oa.search(test_time)[0]._services[2].__dict__,)
     assert oa.search('iris') != []
 
-@pytest.mark.skip(reason = "Service Agreement type mismatch in Squid-Py")
 def test_consume():
     ddo = oa.search(test_time)[0]
     #oa.accounts.request_tokens(account, 10)
