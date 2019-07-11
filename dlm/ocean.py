@@ -1,6 +1,6 @@
 from squid_py import Ocean, ConfigProvider, Config
 from dlm.utils import Utils
-import datetime, os
+import time, os
 
 
 class OceanAgent(Ocean):
@@ -47,12 +47,12 @@ class OceanAgent(Ocean):
         return list_of_ddos
     
     def consume(self, ddo):
-        service_agreement_id = self.assets.order(ddo.did, 0, self.get_account())
+        service_agreement_id = self.assets.order(ddo.did, "Access", self.get_account())
         path_to_data = ''
         attempts = 0
         while not os.path.exists(path_to_data) and attempts < 10:
             try:
-                path_to_data = os.path.join(ConfigProvider.get_config().downloads_path, f'datafile.{ddo.asset_id}.0')
+                path_to_data = os.path.join(self.config.downloads_path, f'datafile.{ddo.asset_id}.0')
             except:
                 attempts += 1
                 time.sleep(1)
