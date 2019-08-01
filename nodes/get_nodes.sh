@@ -29,13 +29,6 @@ echo -e "${onyellow}Installing Ocean Node...$endcolor"
 get_latest oceanprotocol barge
 
 echo -e "${onyellow}Installing Fetch Node...$endcolor"
-if [ ! -d oef-core ]; then
-    git clone https://github.com/fetchai/oef-core
-    cd oef-core
-    git checkout 146c833 # Pre-Pluto
-    ./oef-core-image/scripts/docker-build-img.sh
-else
-    echo "Already up to date."
-fi
+get_latest fetchai oef-mt-core
 
 echo -e "${ongreen}Nodes installed.$endcolor"
