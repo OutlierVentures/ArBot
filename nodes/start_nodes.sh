@@ -20,8 +20,10 @@ else
     echo -e "${onyellow}Starting nodes for local testing...$endcolor"
 fi
 
-cd oef-mt-core
-bazel run mt-core/main/src/cpp:app -- --config_file `pwd`/mt-core/main/src/cpp/config.json
+cd oef-search-pluto
+python3 scripts/launch.py -c ./scripts/launch_config.json --background
+cd ../oef-mt-core
+bazel run mt-core/main/src/cpp:app -- --config_file `pwd`/mt-core/main/src/cpp/config.json &
 
 cd ../barge
 ./start_ocean.sh --latest --no-pleuston --no-brizo --local-$ocean-node --force-pull &> /dev/null &
