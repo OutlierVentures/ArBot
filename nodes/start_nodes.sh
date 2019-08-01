@@ -20,8 +20,8 @@ else
     echo -e "${onyellow}Starting nodes for local testing...$endcolor"
 fi
 
-cd oef-core
-./oef-core-image/scripts/docker-run.sh -p 3333:3333 -- &> /dev/null &
+cd oef-mt-core
+bazel run mt-core/main/src/cpp:app -- --config_file `pwd`/mt-core/main/src/cpp/config.json
 
 cd ../barge
 ./start_ocean.sh --latest --no-pleuston --no-brizo --local-$ocean-node --force-pull &> /dev/null &

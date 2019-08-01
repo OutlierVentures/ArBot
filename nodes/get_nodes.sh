@@ -30,5 +30,7 @@ get_latest oceanprotocol barge
 
 echo -e "${onyellow}Installing Fetch Node...$endcolor"
 get_latest fetchai oef-mt-core
+cd oef-mt-core
+bazel build mt-core/main/src/cpp:app
 
 echo -e "${ongreen}Nodes installed.$endcolor"
