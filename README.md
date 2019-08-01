@@ -7,6 +7,12 @@
 </p>
 
 
+## Requirements
+
+- Python
+- Docker
+- Bazel
+
 ## Usage
 
 You will need a running Fetch.AI and Ocean Protocol node. If you don't want to set these up yourself:
