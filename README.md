@@ -38,7 +38,7 @@ path_to_data, _ = oa.consume(ddo)
 
 fa = FetchAgent(public_key = 'Provider',
                 oef_addr = '127.0.0.1',
-                oef_port = 3333,
+                oef_port = 10000,
                 load_path = path_to_data,
                 metadata = oa.get_meta_from_ddo(ddo))
 fa.connect()
@@ -56,7 +56,7 @@ finally:
 from dlm.fetch import FetchAgent
 from dlm.ocean import OceanAgent
 
-fa = FetchAgent('Consumer', '127.0.0.1', 3333)
+fa = FetchAgent('Consumer', '127.0.0.1', 10000)
 fa.connect()
 fa.search('flowers', 0, 'desired/download/path.json')
 try:

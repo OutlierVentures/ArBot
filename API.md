@@ -10,7 +10,7 @@ Initialise:
 ```python
 fa = FetchAgent(public_key = 'Provider',
                 oef_addr = '127.0.0.1', # Use oef.economicagents.com for testnet
-                oef_port = 3333,
+                oef_port = 10000,
                 load_path = 'data/path.json',
                 metadata = DICT_AS_BELOW,
                 price = 0)
