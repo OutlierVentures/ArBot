@@ -12,7 +12,10 @@ error_report() {
 }
 trap 'error_report $LINENO' ERR
 
-if [ ! -z "$DLMNET" ] && [ $DLMNET==TESTNET ]; then
+if [ ! -z "$NET" ] && [ $NET==MAIN ]; then
+    ocean=pacific
+    echo -e "${onyellow}Starting nodes on mainnet...$endcolor"
+elif [ ! -z "$NET" ] && [ $NET==TEST ]; then
     ocean=nile
     echo -e "${onyellow}Starting nodes on testnet...$endcolor"
 else
@@ -21,12 +24,12 @@ else
 fi
 
 cd oef-search-pluto
-python3 scripts/launch.py -c ./scripts/launch_config.json --background
+python3 scripts/launch.py -c ./scripts/launch_config.json --background &> /dev/null
 cd ../oef-mt-core
-bazel run mt-core/main/src/cpp:app -- --config_file `pwd`/mt-core/main/src/cpp/config.json &
+bazel run mt-core/main/src/cpp:app -- --config_file `pwd`/mt-core/main/src/cpp/config.json &> /dev/null &
 
 cd ../barge
-./start_ocean.sh --latest --no-pleuston --no-brizo --local-$ocean-node --force-pull &> /dev/null &
+./start_ocean.sh --no-pleuston --no-aquarius --no-brizo --no-secret-store --no-faucet --local-$ocean-node &> /dev/null &
 
 while [ $id!="" ]; do
     id=$(docker container ls | grep ocean_ | awk '{print $1}')
