@@ -6,7 +6,7 @@ Spin the Ocean to Fetch demo up then run this one for a full flow Ocean -> Fetch
 from dlm.fetch import FetchAgent
 from dlm.ocean import OceanAgent
 
-fa = FetchAgent('Consumer', '127.0.0.1', 10000)
+fa = FetchAgent()
 fa.connect()
 fa.search('flowers', 0, './purchased.json')
 try:
