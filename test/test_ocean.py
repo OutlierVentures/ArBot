@@ -1,7 +1,7 @@
 from dlm.ocean import OceanAgent
 from dlm.utils import Utils
 from squid_py.ddo.ddo import DDO
-import pytest
+import pytest, os
 
 # Pytest is called from the root directory, so the path to config is from there
 oa = OceanAgent('./dlm/config.ini')

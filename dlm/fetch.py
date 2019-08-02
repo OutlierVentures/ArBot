@@ -134,7 +134,7 @@ if __name__ == '__main__':
 
     fa = FetchAgent(public_key = 'OVAgent',
                     oef_addr = '127.0.0.1',
-                    oef_port = 3333,
+                    oef_port = 10000,
                     load_path = data_path,
                     metadata = meta)
     fa.connect()

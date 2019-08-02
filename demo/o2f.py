@@ -22,7 +22,7 @@ path_to_data = '../test/data/iris.json'
 
 fa = FetchAgent(public_key = 'Provider',
                 oef_addr = '127.0.0.1',
-                oef_port = 3333,
+                oef_port = 10000,
                 load_path = path_to_data,
                 metadata = oa.get_meta_from_ddo(ddo))
 fa.connect()
