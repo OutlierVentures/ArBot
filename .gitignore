@@ -1,7 +1,8 @@
 dist
 dlm.egg-info
+nodes/oef-mt-core
+nodes/oef-search-pluto
 nodes/barge
-nodes/oef-core
 **/__pycache__
 **/.pytest_cache
 **/.DS_Store
