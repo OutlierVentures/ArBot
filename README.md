@@ -36,11 +36,7 @@ list_of_ddos = oa.search('flowers')
 ddo = list_of_ddos[0]
 path_to_data, _ = oa.consume(ddo)
 
-fa = FetchAgent(public_key = 'Provider',
-                oef_addr = '127.0.0.1',
-                oef_port = 10000,
-                load_path = path_to_data,
-                metadata = oa.get_meta_from_ddo(ddo))
+fa = FetchAgent(load_path = path_to_data, metadata = oa.get_meta_from_ddo(ddo))
 fa.connect()
 fa.publish()
 try:
@@ -56,7 +52,7 @@ finally:
 from dlm.fetch import FetchAgent
 from dlm.ocean import OceanAgent
 
-fa = FetchAgent('Consumer', '127.0.0.1', 10000)
+fa = FetchAgent()
 fa.connect()
 fa.search('flowers', 0, 'desired/download/path.json')
 try:
@@ -87,6 +83,10 @@ python3 f2o.py
 ```
 
 Note that Fetch-side publishing demands JSON-formatted sets.
+
+### Specifying mainnet / testnet / local deployment
+
+By default all components will run locally.
 
 ## Components
 
