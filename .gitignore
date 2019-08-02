@@ -6,3 +6,4 @@ nodes/oef-core
 **/.pytest_cache
 **/.DS_Store
 .vscode
+.hypothesis
