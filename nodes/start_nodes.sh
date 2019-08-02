@@ -29,7 +29,7 @@ cd ../oef-mt-core
 bazel run mt-core/main/src/cpp:app -- --config_file `pwd`/mt-core/main/src/cpp/config.json &> /dev/null &
 
 cd ../barge
-./start_ocean.sh --no-pleuston --no-aquarius --no-brizo --no-secret-store --no-faucet --local-$ocean-node &> /dev/null &
+./start_ocean.sh --latest --no-pleuston --no-aquarius --no-brizo --no-secret-store --no-faucet --local-$ocean-node &> /dev/null &
 
 while [ $id!="" ]; do
     id=$(docker container ls | grep ocean_ | awk '{print $1}')
