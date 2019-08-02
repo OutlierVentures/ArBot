@@ -7,7 +7,7 @@ endcolor='\033[0m'
 echo -e "${onyellow}Stopping nodes...$endcolor"
 
 docker stop $(docker ps -a | grep oef-search | awk '{print $1}') &> /dev/null
-kill -INT $(pgrep oef-mt-core | awk '{print $1}') &> /dev/null
+kill -INT $(ps | grep oef-mt-core | awk '{print $1}') &> /dev/null
 
 docker stop $(docker ps -a | grep ocean_ | awk '{print $1}') &> /dev/null
 
