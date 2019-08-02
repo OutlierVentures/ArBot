@@ -9,9 +9,7 @@
 
 ## Requirements
 
-- Python
-- Docker
-- Bazel
+Linux or MacOS and Docker.
 
 ## Usage
 
