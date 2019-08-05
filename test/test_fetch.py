@@ -46,11 +46,11 @@ def test_on_message():
     fa.save_path = ''
 
 @online
-def test_publish():
-    fa.publish()
+def test_publish_fetch():
+    fa.publish_fetch()
     fa2 = FetchAgent()
     fa2.connect()
-    fa2.publish()
+    fa2.publish_fetch()
     fa2.disconnect()
 
 @online

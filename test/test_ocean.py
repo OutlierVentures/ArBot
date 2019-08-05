@@ -12,12 +12,12 @@ def test_get_account():
     assert len(oa.get_account().address) == 42
 
 def test_publish():
-    created_ddo = oa.publish('Iris Dataset ' + test_time,
-                             'Multivariate Iris flower dataset for linear discriminant analysis.',
-                             0,
-                             'https://pkgstore.datahub.io/machine-learning/iris/iris_json/data/23a7b3de91da915b506f7ca23f6d1141/iris_json.json',
-                             'CCO: Public Domain',
-                             ['flowers', 'classification', 'plants'])
+    created_ddo = oa.publish_ocean('Iris Dataset ' + test_time,
+                                   'Multivariate Iris flower dataset for linear discriminant analysis.',
+                                   0,
+                                   'https://pkgstore.datahub.io/machine-learning/iris/iris_json/data/23a7b3de91da915b506f7ca23f6d1141/iris_json.json',
+                                   'CCO: Public Domain',
+                                   ['flowers', 'classification', 'plants'])
     # The assets.resolve(did) registration check is part of the publish function itself
     assert isinstance(created_ddo, DDO)
 
