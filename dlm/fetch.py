@@ -37,7 +37,7 @@ class FetchAgent(OEFAgent):
         data = Utils.load_json(load_path)
         return service, data
 
-    def publish(self):
+    def publish_fetch(self):
         try:
             self.register_service(0, self.service)
         except Exception as e:
@@ -136,7 +136,7 @@ if __name__ == '__main__':
 
     fa = FetchAgent(load_path = data_path, metadata = meta)
     fa.connect()
-    fa.publish()
+    fa.publish_fetch()
     print('Service offered.')
     try:
         fa.run()

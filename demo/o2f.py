@@ -8,12 +8,12 @@ from dlm.fetch import FetchAgent
 
 oa = OceanAgent('../dlm/config.ini')
 # Put the dataset on Ocean to start with. Skip this step and change search term below for existing sets.
-oa.publish('Iris Dataset',
-           'Multivariate Iris flower dataset for linear discriminant analysis.',
-           0,
-           'https://pkgstore.datahub.io/machine-learning/iris/iris_json/data/23a7b3de91da915b506f7ca23f6d1141/iris_json.json',
-           'CCO: Public Domain',
-           ['flowers', 'classification', 'plants'])
+oa.publish_ocean('Iris Dataset',
+                 'Multivariate Iris flower dataset for linear discriminant analysis.',
+                 0,
+                 'https://pkgstore.datahub.io/machine-learning/iris/iris_json/data/23a7b3de91da915b506f7ca23f6d1141/iris_json.json',
+                 'CCO: Public Domain',
+                 ['flowers', 'classification', 'plants'])
 list_of_ddos = oa.search('flowers')
 ddo = list_of_ddos[0]
 # Consume found set. Mock data consumption while squid-py issue #382 is open.
@@ -22,7 +22,7 @@ path_to_data = '../test/data/iris.json'
 
 fa = FetchAgent(load_path = path_to_data, metadata = oa.get_meta_from_ddo(ddo))
 fa.connect()
-fa.publish()
+fa.publish_fetch()
 print('Published to the OEF.')
 try:
     fa.run()

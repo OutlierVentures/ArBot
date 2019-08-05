@@ -14,7 +14,7 @@ class OceanAgent(Ocean):
     def get_account(self):
         return self.accounts.list()[0]
 
-    def publish(self, name, description, price, url, license, tags = ['outlier ventures']):
+    def publish_ocean(self, name, description, price, url, license, tags = ['outlier ventures']):
         account = self.get_account()
         metadata = {
             'base': {

@@ -16,9 +16,9 @@ finally:
     fa.disconnect()
 
 oa = OceanAgent('../dlm/config.ini')
-oa.publish('Iris Dataset',
-           'Multivariate Iris flower dataset for linear discriminant analysis.',
-           0,
-           'https://pkgstore.datahub.io/machine-learning/iris/iris_json/data/23a7b3de91da915b506f7ca23f6d1141/iris_json.json',
-           'CCO: Public Domain',
-           ['flowers', 'classification', 'plants'])
+oa.publish_ocean('Iris Dataset',
+                 'Multivariate Iris flower dataset for linear discriminant analysis.',
+                 0,
+                 'https://pkgstore.datahub.io/machine-learning/iris/iris_json/data/23a7b3de91da915b506f7ca23f6d1141/iris_json.json',
+                 'CCO: Public Domain',
+                 ['flowers', 'classification', 'plants'])
