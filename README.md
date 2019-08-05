@@ -7,9 +7,11 @@
 </p>
 
 
-## Requirements
+## Requirements and Install
 
-Linux or MacOS and Docker.
+Requires Linux or MacOS and Docker.
+
+Install: `pip3 install .`
 
 ## Usage
 
