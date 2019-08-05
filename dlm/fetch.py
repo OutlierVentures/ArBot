@@ -12,7 +12,7 @@ class FetchAgent(OEFAgent):
     def __init__(self, load_path = '', metadata = {}, price = 0):
         net = os.getenv('NET', '')
         oef = 'oef.economicagents.com' if (net == 'MAIN' or net == 'TEST') else '127.0.0.1'
-        OEFAgent.__init__(self, public_key = 'Outlier-Ocean-Bridge', oef_addr = oef, oef_port = 10000)
+        OEFAgent.__init__(self, public_key = 'DataBridge', oef_addr = oef, oef_port = 10000)
         # These will be written to in search() specifying if we want to pull incoming OEF data
         self.purchase_price = 0
         self.save_path = ''
@@ -51,7 +51,7 @@ class FetchAgent(OEFAgent):
         # Otherwise we can be bombarded at any time.
         if self.save_path != '':
             Utils.write_json(data, self.save_path)
-        self.stop()
+        #self.stop()
         return data
 
 
@@ -70,11 +70,11 @@ class FetchAgent(OEFAgent):
         encoded_data = json.dumps(self.data).encode('utf-8')
         print('[{0}]: Sending data to {1}: {2}'.format(self.public_key, origin, self.data))
         self.send_message(0, dialogue_id, origin, encoded_data)
-        self.stop()
+        #self.stop()
 
     def on_decline(self, msg_id: int, dialogue_id: int, origin: str, target: int):
         print('[{0}]: Received decline from {1}.'.format(self.public_key, origin))
-        self.stop()
+        #self.stop()
 
 
     '''
@@ -110,11 +110,11 @@ class FetchAgent(OEFAgent):
             if abs(int(p.values['price'])) > self.purchase_price:
                 print('[{0}]: Declining Propose.'.format(self.public_key))
                 self.send_decline(msg_id, dialogue_id, origin, msg_id + 1)
-                self.stop()
+                #self.stop()
                 return False
         print('[{0}]: Accepting Propose.'.format(self.public_key))
         self.send_accept(msg_id, dialogue_id, origin, msg_id + 1)
-        self.stop()
+        #self.stop()
         return True
 
 
