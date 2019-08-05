@@ -38,7 +38,7 @@ path_to_data, _ = oa.consume(ddo)
 
 fa = FetchAgent(load_path = path_to_data, metadata = oa.get_meta_from_ddo(ddo))
 fa.connect()
-fa.publish()
+fa.publish_fetch()
 try:
     fa.run()
 finally:
@@ -62,12 +62,12 @@ finally:
     fa.disconnect()
 
 oa = OceanAgent('path/to/config.ini')
-oa.publish('Iris Dataset',
-           'Multivariate Iris flower dataset for linear discriminant analysis.',
-           0,
-           'https://pkgstore.datahub.io/machine-learning/iris/iris_json/data/23a7b3de91da915b506f7ca23f6d1141/iris_json.json',
-           'CCO: Public Domain',
-           ['flowers', 'classification', 'plants'])
+oa.publish_ocean('Iris Dataset',
+                 'Multivariate Iris flower dataset for linear discriminant analysis.',
+                 0,
+                 'https://pkgstore.datahub.io/machine-learning/iris/iris_json/data/23a7b3de91da915b506f7ca23f6d1141/iris_json.json',
+                 'CCO: Public Domain',
+                 ['flowers', 'classification', 'plants'])
 ```
 
 
