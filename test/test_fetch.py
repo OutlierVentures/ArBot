@@ -75,7 +75,7 @@ For an example negotiation take a look at the demo files o2f.py and f2o.py.
 '''
 @online
 def test_fetch_search():
-    fa.fetch_search('flowers', 0, './test/data/purchased.json')
+    fa.fetch_search('flowers')  
     fa.on_search_result = MagicMock()
     assert fa.on_search_result.assert_called
 
@@ -86,9 +86,15 @@ def test_on_search_result():
 
 @online
 def test_on_propose():
-    accepted = fa.on_propose(0, 0, mock_counterparty, 0, [Description({'price': 0})])
-    assert accepted == True
-    accepted = fa.on_propose(1, 0, mock_counterparty, 0, [Description({'price': 1})])
-    assert accepted == False
+    assert not fa.open_proposals
+    fa.on_propose(0, 0, mock_counterparty, 0, [Description({'price': 0})])
+    assert fa.open_proposals
+    fa.open_proposals = []
 
-    
+@online
+def test_fetch_consume():
+    fa.open_proposals = [{'price': 0, 'msg_id': 0, 'dialogue_id': 0, 'origin': mock_counterparty}]
+    assert not fa.fetch_consume(-1, './')
+    assert fa.fetch_consume(1, './')
+    assert fa.fetch_consume(2, './')
+    assert fa.save_path
