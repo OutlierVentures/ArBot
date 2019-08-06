@@ -98,7 +98,7 @@ class FetchAgent(OEFAgent):
     def on_search_result(self, search_id: int, agents: List[str]):
         if len(agents) == 0:
             print('[{}]: No agent found. Stopping...'.format(self.public_key))
-            self.stop()
+            #self.stop()
             return
         print('[{0}]: Agent found: {1}'.format(self.public_key, agents))
         # 'None' query returns all the resources the prover can propose.
