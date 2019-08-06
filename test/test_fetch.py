@@ -106,3 +106,9 @@ def test_try_respond_n():
     assert fa.try_respond_n(mock_open_proposals, True)
     assert fa.try_respond_n(mock_open_proposals, False)
     assert not fa.try_respond_n('biscuit', True)
+
+def test_get_search_results():
+    assert not fa.get_search_results()
+    fa.open_proposals = mock_open_proposals
+    assert fa.get_search_results()
+    fa.open_proposals = []
