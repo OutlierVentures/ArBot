@@ -166,6 +166,9 @@ class FetchAgent(OEFAgent):
             index += 1
         result = True if fail_count != len(proposals) else False
         return result
+    
+    def get_search_results(self):
+        return self.open_proposals
 
 
 
