@@ -10,8 +10,11 @@ import json, os
 class FetchAgent(OEFAgent):
 
     def __init__(self, load_path = '', metadata = {}, price = 0):
+        ''' MAIN/TEST ADDRESSES NOT RELEASED YET
         net = os.getenv('NET', '')
         oef = 'oef.economicagents.com' if (net == 'MAIN' or net == 'TEST') else '127.0.0.1'
+        '''
+        oef = '127.0.0.1'
         OEFAgent.__init__(self, public_key = 'DataBridge', oef_addr = oef, oef_port = 10000)
         # These will be written to in search() specifying if we want to pull incoming OEF data
         self.purchase_price = 0
