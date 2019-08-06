@@ -30,11 +30,11 @@ class FetchAgent(OEFAgent):
         data = Utils.load_json(load_path)
         return service, data
 
-    def publish_fetch(self, name, description, price, load_path, tags = ['outlier ventures']):
+    def fetch_publish(self, name, description, price, load_path, tags = ['outlier ventures']):
         metadata = { 'base': { 'name': name, 'description': description, 'tags': tags } }
-        return self.publish_fetch_from_ocean_meta(metadata, price, load_path)
+        return self.fetch_publish_from_ocean_meta(metadata, price, load_path)
     
-    def publish_fetch_from_ocean_meta(self, metadata, price, load_path):
+    def fetch_publish_from_ocean_meta(self, metadata, price, load_path):
         try:
             self.service, self.data = self.load_service(metadata, load_path)
             self.price = abs(int(price))
@@ -85,7 +85,7 @@ class FetchAgent(OEFAgent):
     CONSUMER FUNCTIONS
     '''
     # Add save path and max price here
-    def search(self, terms: str, max_price: int, save_path: str):
+    def fetch_search(self, terms: str, max_price: int, save_path: str):
         search_terms = terms.split(' ')
         query_array = []
         for term in search_terms:

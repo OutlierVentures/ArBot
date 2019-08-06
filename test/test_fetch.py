@@ -46,17 +46,17 @@ def test_on_message():
     fa.save_path = ''
 
 @online
-def test_publish_fetch():
+def test_fetch_publish():
     data = meta['base']
-    assert fa.publish_fetch(data['name'],
+    assert fa.fetch_publish(data['name'],
                             data['description'],
                             0,
                             data_path,
                             data['tags'])
 
 @online
-def test_publish_fetch_from_ocean_meta():
-    assert fa.publish_fetch_from_ocean_meta(meta, 0, data_path)
+def test_fetch_publish_from_ocean_meta():
+    assert fa.fetch_publish_from_ocean_meta(meta, 0, data_path)
 
 @online
 def test_on_cfp():
@@ -74,8 +74,8 @@ Note that the OEF module handles the negotiation testing underneath.
 For an example negotiation take a look at the demo files o2f.py and f2o.py.
 '''
 @online
-def test_search():
-    fa.search('flowers', 0, './test/data/purchased.json')
+def test_fetch_search():
+    fa.fetch_search('flowers', 0, './test/data/purchased.json')
     fa.on_search_result = MagicMock()
     assert fa.on_search_result.assert_called
 

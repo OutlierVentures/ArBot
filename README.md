@@ -40,7 +40,7 @@ path_to_data, _ = oa.ocean_consume(ddo)
 
 fa = FetchAgent()
 fa.connect()
-fa.publish_fetch_from_ocean_meta(oa.get_meta_from_ddo(ddo), path_to_data)
+fa.fetch_publish_from_ocean_meta(oa.get_meta_from_ddo(ddo), path_to_data)
 try:
     fa.run()
 finally:

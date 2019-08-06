@@ -22,7 +22,7 @@ path_to_data = '../test/data/iris.json'
 
 fa = FetchAgent()
 fa.connect()
-fa.publish_fetch_from_ocean_meta(oa.get_meta_from_ddo(ddo), 0, path_to_data)
+fa.fetch_publish_from_ocean_meta(oa.get_meta_from_ddo(ddo), 0, path_to_data)
 print('Published to the OEF.')
 try:
     fa.run()
