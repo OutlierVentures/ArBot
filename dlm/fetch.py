@@ -32,6 +32,12 @@ class FetchAgent(OEFAgent):
 
     def publish_fetch(self, name, description, price, load_path, tags = ['outlier ventures']):
         metadata = { 'base': { 'name': name, 'description': description, 'tags': tags } }
+        return self.publish_core(metadata, price, load_path)
+    
+    def publish_fetch_from_ocean_meta(self, metadata, price, load_path):
+        return self.publish_core(metadata, price, load_path)
+    
+    def publish_core(self, metadata, price, load_path):
         try:
             self.service, self.data = self.load_service(metadata, load_path)
             self.price = abs(int(price))
@@ -44,8 +50,7 @@ class FetchAgent(OEFAgent):
         except Exception as e:
             print('Agent has no data or metadata:', e)
             return False
-
-    
+   
     def on_message(self, msg_id: int, dialogue_id: int, origin: str, content: bytes):
         data = json.loads(content.decode('utf-8'))
         print('[{0}] Received measurement from {1}: {2}'.format(self.public_key, origin, data))
