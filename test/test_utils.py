@@ -9,8 +9,8 @@ def test_get_time():
     assert time[-1] == 'Z'
 
 def test_get_remote_hash():
-    hash = ut.get_remote_hash('https://datahub.io/machine-learning/iris/r/iris.csv')
-    assert hash == '69a2774d46b2c322afba26d54109f90ffeeac617b0f771a168d696e66059da6c'
+    hash = ut.get_remote_hash('https://outlierventures.io/wp-content/uploads/2019/05/OV_Sponsor-logos.jpg')
+    assert hash == 'b1790a94e8450e171f9a2ed0ad222034622937e14b583cc2d192fc10cc41a526'
 
 def test_load_json():
     loaded_json = ut.load_json('./test/data/iris_meta.json')
