@@ -36,7 +36,7 @@ from dlm.fetch import FetchAgent
 oa = OceanAgent('path/to/config.ini')
 list_of_ddos = oa.search('flowers')
 ddo = list_of_ddos[0]
-path_to_data, _ = oa.consume(ddo)
+path_to_data, _ = oa.ocean_consume(ddo)
 
 fa = FetchAgent()
 fa.connect()

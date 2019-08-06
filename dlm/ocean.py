@@ -46,7 +46,7 @@ class OceanAgent(Ocean):
         list_of_ddos = self.assets.search(terms)
         return list_of_ddos
     
-    def consume(self, ddo):
+    def ocean_consume(self, ddo):
         service_agreement_id = self.assets.order(ddo.did, "Access", self.ocean_get_account())
         path_to_data = ''
         attempts = 0

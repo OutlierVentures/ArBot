@@ -25,10 +25,10 @@ def test_ocean_search():
     assert oa.ocean_search(test_time) != []
     assert oa.ocean_search('iris') != []
 
-def test_consume():
+def test_ocean_consume():
     ddo = oa.ocean_search(test_time)[0]
     #oa.accounts.request_tokens(account, 10)
-    path_to_data, _ = oa.consume(ddo)
+    path_to_data, _ = oa.ocean_consume(ddo)
     assert os.path.exists(path_to_data)
 
 def test_get_meta_from_ddo():

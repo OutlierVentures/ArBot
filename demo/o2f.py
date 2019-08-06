@@ -17,7 +17,7 @@ oa.ocean_publish('Iris Dataset',
 list_of_ddos = oa.search('flowers')
 ddo = list_of_ddos[0]
 # Consume found set. Mock data consumption while squid-py issue #382 is open.
-#path_to_data, _ = oa.consume(ddo)
+#path_to_data, _ = oa.ocean_consume(ddo)
 path_to_data = '../test/data/iris.json'
 
 fa = FetchAgent()
