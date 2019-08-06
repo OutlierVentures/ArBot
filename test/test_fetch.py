@@ -18,6 +18,7 @@ meta = {
 }
 data_path = './test/data/iris.json'
 mock_counterparty = 'alice'
+mock_open_proposals = [{'price': 0, 'msg_id': 0, 'dialogue_id': 0, 'origin': mock_counterparty}]
 
 fa = FetchAgent()
 
@@ -93,8 +94,15 @@ def test_on_propose():
 
 @online
 def test_fetch_consume():
-    fa.open_proposals = [{'price': 0, 'msg_id': 0, 'dialogue_id': 0, 'origin': mock_counterparty}]
+    fa.open_proposals = mock_open_proposals
     assert not fa.fetch_consume(-1, './')
     assert fa.fetch_consume(1, './')
     assert fa.fetch_consume(2, './')
     assert fa.save_path
+    fa.open_proposals = []
+
+@online
+def test_try_respond_n():
+    assert fa.try_respond_n(mock_open_proposals, True)
+    assert fa.try_respond_n(mock_open_proposals, False)
+    assert not fa.try_respond_n('biscuit', True)
