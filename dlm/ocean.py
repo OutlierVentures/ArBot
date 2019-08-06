@@ -14,6 +14,32 @@ class OceanAgent(Ocean):
     def ocean_get_account(self):
         return self.accounts.list()[0]
 
+    def ocean_search(self, terms):
+        list_of_ddos = self.assets.search(terms)
+        assets = []
+        for ddo in list_of_ddos:
+            meta = self.ocean_get_meta_from_ddo(ddo)['base']
+            asset = {
+                'name': meta['name'],
+                'price': int(meta['price']), # NOTE: encoded as string on Ocean!
+                'tags': meta['tags'],
+                'ddo': ddo
+            }
+            assets.append(asset)
+        return assets
+    
+    def ocean_consume(self, ddo):
+        service_agreement_id = self.assets.order(ddo.did, "Access", self.ocean_get_account())
+        path_to_data = ''
+        attempts = 0
+        while not os.path.exists(path_to_data) and attempts < 10:
+            try:
+                path_to_data = os.path.join(self.config.downloads_path, f'datafile.{ddo.asset_id}.0')
+            except:
+                attempts += 1
+                time.sleep(1)
+        return os.listdir(path_to_data), service_agreement_id
+
     def ocean_publish(self, name, description, price, url, license, tags = ['outlier ventures']):
         account = self.ocean_get_account()
         metadata = {
@@ -41,39 +67,13 @@ class OceanAgent(Ocean):
         registered_ddo = self.assets.resolve(ddo.did)
         assert ddo.did == registered_ddo.did
         return ddo
-
-    def ocean_search(self, terms):
-        list_of_ddos = self.assets.search(terms)
-        assets = []
-        for ddo in list_of_ddos:
-            meta = self.get_meta_from_ddo(ddo)['base']
-            asset = {
-                'name': meta['name'],
-                'price': meta['price'], # NOTE: encoded as string!
-                'tags': meta['tags']
-            }
-            assets.append(asset)
-        return assets
-    
-    def ocean_consume(self, ddo):
-        service_agreement_id = self.assets.order(ddo.did, "Access", self.ocean_get_account())
-        path_to_data = ''
-        attempts = 0
-        while not os.path.exists(path_to_data) and attempts < 10:
-            try:
-                path_to_data = os.path.join(self.config.downloads_path, f'datafile.{ddo.asset_id}.0')
-            except:
-                attempts += 1
-                time.sleep(1)
-        return os.listdir(path_to_data), service_agreement_id
     
     # Note curation data may be of use here in future
-    def get_meta_from_ddo(self, ddo):
+    def ocean_get_meta_from_ddo(self, ddo):
         for item in ddo._services:
             if item._type == 'Metadata':
                 return item._values['metadata']
         return {}
-
 
 
 if __name__ == '__main__':
