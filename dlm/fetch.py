@@ -4,7 +4,7 @@ from oef.messages import CFP_TYPES, PROPOSE_TYPES
 from oef.query import Query, Constraint, NotEq
 from dlm.utils import Utils
 from typing import List
-import json, os
+import json, os, time
 
 
 class FetchAgent(OEFAgent):
@@ -16,7 +16,8 @@ class FetchAgent(OEFAgent):
         '''
         oef = '127.0.0.1'
         OEFAgent.__init__(self, public_key = 'DataBridge', oef_addr = oef, oef_port = 10000)
-          
+        self.open_proposals = []
+        
     def load_service(self, metadata, load_path):
         dataset_info = metadata['base']
         attributes = description = {}
@@ -48,12 +49,13 @@ class FetchAgent(OEFAgent):
             print('Agent has no data or metadata:', e)
             return False
    
+    # on_message is used to receive datasets and datapoints
     def on_message(self, msg_id: int, dialogue_id: int, origin: str, content: bytes):
         data = json.loads(content.decode('utf-8'))
         print('[{0}] Received measurement from {1}: {2}'.format(self.public_key, origin, data))
         # If we've specified that we want to be saving data, then save incoming data.
         # Otherwise we can be bombarded at any time.
-        if self.save_path != '':
+        if self.save_path:
             Utils.write_json(data, self.save_path)
         #self.stop()
         return data
@@ -84,16 +86,19 @@ class FetchAgent(OEFAgent):
     '''
     CONSUMER FUNCTIONS
     '''
-    # Add save path and max price here
-    def fetch_search(self, terms: str, max_price: int, save_path: str):
+    def fetch_search(self, terms: str):
+        # Reject any old proposals and reset for a new set of proposals
+        self.try_respond_n(self.open_proposals, False)
+        self.open_proposals = []
+        self.save_path = ''
         search_terms = terms.split(' ')
         query_array = []
         for term in search_terms:
             query_array.append(Constraint(term, NotEq(None)))
         query = Query(query_array)
-        self.purchase_price = abs(int(max_price))
-        self.save_path = save_path
         self.search_services(0, query)
+        print('Find any proposals in self.proposals')
+
 
     def on_search_result(self, search_id: int, agents: List[str]):
         if len(agents) == 0:
@@ -109,17 +114,58 @@ class FetchAgent(OEFAgent):
     
     def on_propose(self, msg_id: int, dialogue_id: int, origin: str, target: int, proposals: PROPOSE_TYPES) -> bool:
         print('[{0}]: Received propose from agent {1}'.format(self.public_key, origin))
+        these_proposals = []
         for i, p in enumerate(proposals):
             print('[{0}]: Proposal {1}: {2}'.format(self.public_key, i, p.values))
-            if abs(int(p.values['price'])) > self.purchase_price:
-                print('[{0}]: Declining Propose.'.format(self.public_key))
-                self.send_decline(msg_id, dialogue_id, origin, msg_id + 1)
-                #self.stop()
-                return False
-        print('[{0}]: Accepting Propose.'.format(self.public_key))
-        self.send_accept(msg_id, dialogue_id, origin, msg_id + 1)
-        #self.stop()
-        return True
+            proposal = {
+                'price': abs(int(p.values['price'])),
+                'origin': origin,
+                'msg_id': msg_id,
+                'dialogue_id': dialogue_id
+            }
+            these_proposals.append(proposal)
+        sorted_proposals = sorted(these_proposals, key = lambda k: k['price'])
+        self.open_proposals = sorted_proposals
+    
+    # Consumes the cheapest n proposals
+    def fetch_consume(self, number_to_consume, save_path):
+        self.save_path = save_path
+        number_to_consume = int(number_to_consume)
+        number_of_proposals = len(self.open_proposals)
+        print(number_to_consume, number_of_proposals)
+        if number_of_proposals == 0 or number_to_consume <= 0:
+            print('No proposals to accept.')
+            return False
+        if number_to_consume >= number_of_proposals:
+            print('Consuming all proposals.')
+            result = self.try_respond_n(self.open_proposals, True)
+        else:
+            print('Consuming ' + str(number_to_consume) + ' proposals.')
+            to_accept = self.open_proposals[:(number_to_consume - 1)]
+            to_decline = self.open_proposals[number_to_consume:]
+            result_accepts = self.try_respond_n(to_accept, True)
+            result_declines = self.try_respond_n(to_decline, False)
+            result = result_accepts or result_declines
+        return result
+
+    def try_respond_n(self, proposals, is_accept):
+        fail_count = 0
+        index = 0
+        for proposal in proposals:
+            try:
+                if is_accept:
+                    self.send_accept(proposal['msg_id'], proposal['dialogue_id'], proposal['origin'], proposal['msg_id'] + 1)
+                    print('Accepting proposal from ' + proposal['origin'])
+                else:
+                    self.send_decline(proposal['msg_id'], proposal['dialogue_id'], proposal['origin'], proposal['msg_id'] + 1)
+                    print('Declining proposal from ' + proposal['origin'])
+            except Exception as e:
+                fail_count += 1
+                print('Failed to respond to proposal from ' + str(index))
+                print(e)
+            index += 1
+        result = True if fail_count != len(proposals) else False
+        return result
 
 
 
