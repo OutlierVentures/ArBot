@@ -44,7 +44,16 @@ class OceanAgent(Ocean):
 
     def ocean_search(self, terms):
         list_of_ddos = self.assets.search(terms)
-        return list_of_ddos
+        assets = []
+        for ddo in list_of_ddos:
+            meta = self.get_meta_from_ddo(ddo)['base']
+            asset = {
+                'name': meta['name'],
+                'price': meta['price'], # NOTE: encoded as string!
+                'tags': meta['tags']
+            }
+            assets.append(asset)
+        return assets
     
     def ocean_consume(self, ddo):
         service_agreement_id = self.assets.order(ddo.did, "Access", self.ocean_get_account())

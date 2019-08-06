@@ -34,7 +34,7 @@ from dlm.ocean import OceanAgent
 from dlm.fetch import FetchAgent
 
 oa = OceanAgent('path/to/config.ini')
-list_of_ddos = oa.search('flowers')
+list_of_ddos = oa.ocean_search('flowers')
 ddo = list_of_ddos[0]
 path_to_data, _ = oa.ocean_consume(ddo)
 
@@ -56,7 +56,7 @@ from dlm.ocean import OceanAgent
 
 fa = FetchAgent()
 fa.connect()
-fa.search('flowers', 0, 'desired/download/path.json')
+fa.fetch_search('flowers', 0, 'desired/download/path.json')
 try:
     fa.run()
 finally:
