@@ -93,6 +93,12 @@ def test_on_propose():
     fa.open_proposals = []
 
 @online
+def test_try_respond_n():
+    assert fa.try_respond_n(mock_open_proposals, True)
+    assert fa.try_respond_n(mock_open_proposals, False)
+    assert not fa.try_respond_n('biscuit', True)
+
+@online
 def test_fetch_consume():
     fa.open_proposals = mock_open_proposals
     assert not fa.fetch_consume(-1, './')
@@ -101,14 +107,8 @@ def test_fetch_consume():
     assert fa.save_path
     fa.open_proposals = []
 
-@online
-def test_try_respond_n():
-    assert fa.try_respond_n(mock_open_proposals, True)
-    assert fa.try_respond_n(mock_open_proposals, False)
-    assert not fa.try_respond_n('biscuit', True)
-
-def test_get_search_results():
-    assert not fa.get_search_results()
+def test_fetch_get_search_results():
+    assert not fa.fetch_get_search_results()
     fa.open_proposals = mock_open_proposals
-    assert fa.get_search_results()
+    assert fa.fetch_get_search_results()
     fa.open_proposals = []
