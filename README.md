@@ -38,9 +38,9 @@ list_of_ddos = oa.search('flowers')
 ddo = list_of_ddos[0]
 path_to_data, _ = oa.consume(ddo)
 
-fa = FetchAgent(load_path = path_to_data, metadata = oa.get_meta_from_ddo(ddo))
+fa = FetchAgent()
 fa.connect()
-fa.publish_fetch()
+fa.publish_fetch_from_ocean_meta(oa.get_meta_from_ddo(ddo), path_to_data)
 try:
     fa.run()
 finally:

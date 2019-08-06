@@ -14,5 +14,5 @@ class ArBot(FetchAgent, OceanAgent):
 
 if __name__ == '__main__':
 
-    ab = ArBot()
+    ab = ArBot('./config.ini')
     print('ArBot not ready for use yet.')
