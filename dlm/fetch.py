@@ -32,12 +32,9 @@ class FetchAgent(OEFAgent):
 
     def publish_fetch(self, name, description, price, load_path, tags = ['outlier ventures']):
         metadata = { 'base': { 'name': name, 'description': description, 'tags': tags } }
-        return self.publish_core(metadata, price, load_path)
+        return self.publish_fetch_from_ocean_meta(metadata, price, load_path)
     
     def publish_fetch_from_ocean_meta(self, metadata, price, load_path):
-        return self.publish_core(metadata, price, load_path)
-    
-    def publish_core(self, metadata, price, load_path):
         try:
             self.service, self.data = self.load_service(metadata, load_path)
             self.price = abs(int(price))
