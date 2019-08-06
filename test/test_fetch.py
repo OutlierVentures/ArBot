@@ -55,6 +55,10 @@ def test_publish_fetch():
                             data['tags'])
 
 @online
+def test_publish_fetch_from_ocean_meta():
+    assert fa.publish_fetch_from_ocean_meta(meta, 0, data_path)
+
+@online
 def test_on_cfp():
     fa.on_cfp(0, 0, mock_counterparty, 0, Query)
 
