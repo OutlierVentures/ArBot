@@ -8,7 +8,7 @@ from dlm.fetch import FetchAgent
 
 oa = OceanAgent('../dlm/config.ini')
 # Put the dataset on Ocean to start with. Skip this step and change search term below for existing sets.
-oa.publish_ocean('Iris Dataset',
+oa.ocean_publish('Iris Dataset',
                  'Multivariate Iris flower dataset for linear discriminant analysis.',
                  0,
                  'https://pkgstore.datahub.io/machine-learning/iris/iris_json/data/23a7b3de91da915b506f7ca23f6d1141/iris_json.json',

@@ -11,11 +11,11 @@ class OceanAgent(Ocean):
         Ocean.__init__(self)
     
     # Instance methods take self as an argument
-    def get_account(self):
+    def ocean_get_account(self):
         return self.accounts.list()[0]
 
-    def publish_ocean(self, name, description, price, url, license, tags = ['outlier ventures']):
-        account = self.get_account()
+    def ocean_publish(self, name, description, price, url, license, tags = ['outlier ventures']):
+        account = self.ocean_get_account()
         metadata = {
             'base': {
                 'name': name,
@@ -42,12 +42,12 @@ class OceanAgent(Ocean):
         assert ddo.did == registered_ddo.did
         return ddo
 
-    def search(self, terms):
+    def ocean_search(self, terms):
         list_of_ddos = self.assets.search(terms)
         return list_of_ddos
     
     def consume(self, ddo):
-        service_agreement_id = self.assets.order(ddo.did, "Access", self.get_account())
+        service_agreement_id = self.assets.order(ddo.did, "Access", self.ocean_get_account())
         path_to_data = ''
         attempts = 0
         while not os.path.exists(path_to_data) and attempts < 10:
