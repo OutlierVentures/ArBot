@@ -20,9 +20,9 @@ ddo = list_of_ddos[0]
 #path_to_data, _ = oa.consume(ddo)
 path_to_data = '../test/data/iris.json'
 
-fa = FetchAgent(load_path = path_to_data, metadata = oa.get_meta_from_ddo(ddo))
+fa = FetchAgent()
 fa.connect()
-fa.publish_fetch()
+fa.publish_fetch_from_ocean_meta(oa.get_meta_from_ddo(ddo), 0, path_to_data)
 print('Published to the OEF.')
 try:
     fa.run()
