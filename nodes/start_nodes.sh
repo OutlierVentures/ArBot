@@ -12,10 +12,10 @@ error_report() {
 }
 trap 'error_report $LINENO' ERR
 
-if [ ! -z "$NET" ] && [ $NET==MAIN ]; then
+if [ "$NET" == "MAIN" ]; then
     ocean=pacific
     echo -e "${onyellow}Starting nodes on mainnet...$endcolor"
-elif [ ! -z "$NET" ] && [ $NET==TEST ]; then
+elif [ "$NET" == "TEST" ]; then
     ocean=nile
     echo -e "${onyellow}Starting nodes on testnet...$endcolor"
 else
