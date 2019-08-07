@@ -18,7 +18,10 @@ meta = {
 }
 data_path = './test/data/iris.json'
 mock_counterparty = 'alice'
-mock_open_proposals = [{'price': 0, 'msg_id': 0, 'dialogue_id': 0, 'origin': mock_counterparty}]
+mock_open_proposals = [{'categories': ['flowers', 'classification', 'plants'],
+                        'price': 0,
+                        'network': 'fetch',
+                        'ids': {'msg_id': 0, 'dialogue_id': 0, 'origin': mock_counterparty}}]
 
 fa = FetchAgent()
 
