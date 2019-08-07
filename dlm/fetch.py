@@ -26,10 +26,9 @@ class FetchAgent(OEFAgent):
         search_terms = terms.split(' ')
         query_array = []
         for term in search_terms:
-            query_array.append(Constraint(term, NotEq(None)))
+            query_array.append(Constraint(term, NotEq('')))
         query = Query(query_array)
         self.search_services(0, query)
-        print('Find any proposals in self.proposals')
     
     def fetch_get_search_results(self):
         return self.open_proposals
