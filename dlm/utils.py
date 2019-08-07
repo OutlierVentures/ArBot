@@ -2,7 +2,7 @@ from hashlib import sha256
 from datetime import datetime
 from urllib.request import urlopen
 from requests.exceptions import ConnectionError
-import json, requests
+import json, requests, os
 
 
 class Utils:
@@ -38,10 +38,13 @@ class Utils:
     
     @staticmethod
     def site_exists(url):
-        try:
-            requests.get(url)
-        except ConnectionError:
-            return False
-        else:
-            return True
+        if 'file://' in url:
+            return True if os.path.exists(url.replace('file://', '')) else False
+        else:    
+            try:
+                requests.get(url)
+            except ConnectionError:
+                return False
+            else:
+                return True
 
