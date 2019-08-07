@@ -1,7 +1,9 @@
+from hashlib import sha256
 from datetime import datetime
 from urllib.request import urlopen
-from hashlib import sha256
-import json
+from requests.exceptions import ConnectionError
+import json, requests
+
 
 class Utils:
 
@@ -33,4 +35,13 @@ class Utils:
     def write_json(data, path):
         with open(path, 'w') as outfile:
             json.dump(data, outfile)
+    
+    @staticmethod
+    def site_exists(url):
+        try:
+            requests.get(url)
+        except ConnectionError:
+            return False
+        else:
+            return True
 
