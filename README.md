@@ -98,7 +98,11 @@ ab = ArBot('/path/to/ocean/config.ini', '/path/to/webserver/root', 'https://your
 ab.arb('iris categorical')
 ```
 
-See the `demo` folder for some super simple examples. For a full Ocean -> Fetch -> Ocean flow, run both, `o2f.py` first:
+### Examples
+
+See the `demo` folder for some super simple examples.
+
+For a full Ocean -> Fetch -> Ocean flow:
 
 Terminal 1:
 ```
