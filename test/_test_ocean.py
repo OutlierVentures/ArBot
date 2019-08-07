@@ -26,13 +26,13 @@ def test_ocean_search():
     assert oa.ocean_search('iris') != []
 
 def test_ocean_consume():
-    ddo = oa.ocean_search(test_time)[0]
+    ddo = oa.ocean_search(test_time)[0]['ids']['ddo']
     #oa.accounts.request_tokens(account, 10)
     path_to_data, _ = oa.ocean_consume(ddo)
     assert os.path.exists(path_to_data)
 
 def test_ocean_get_meta_from_ddo():
-    ddo = oa.ocean_search('iris')[0]
+    ddo = oa.ocean_search('iris')[0]['ids']['ddo']
     meta = oa.ocean_get_meta_from_ddo(ddo)
     assert meta['base']['description'] == 'Multivariate Iris flower dataset for linear discriminant analysis.'
     assert len(meta['base']['tags']) == 3
