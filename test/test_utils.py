@@ -23,3 +23,7 @@ def test_write_json():
     loaded_json = ut.load_json(temp_path)
     assert 'key' in loaded_json
     os.remove(temp_path)
+
+def test_site_exists():
+    assert ut.site_exists('https://ethereum.org/')
+    assert not ut.site_exists('http://a.bcdef/')
