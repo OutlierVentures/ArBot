@@ -20,10 +20,11 @@ class OceanAgent(Ocean):
         for ddo in list_of_ddos:
             meta = self.ocean_get_meta_from_ddo(ddo)['base']
             asset = {
-                'name': meta['name'],
+                'categories': terms,
                 'price': int(meta['price']), # NOTE: encoded as string on Ocean!
-                'tags': meta['tags'],
-                'ddo': ddo
+                'ids': {
+                    'ddo': ddo
+                }
             }
             assets.append(asset)
         return assets
