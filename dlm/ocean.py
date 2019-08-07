@@ -22,6 +22,7 @@ class OceanAgent(Ocean):
             asset = {
                 'categories': terms,
                 'price': int(meta['price']), # NOTE: encoded as string on Ocean!
+                'network': 'ocean',
                 'ids': {
                     'ddo': ddo
                 }
