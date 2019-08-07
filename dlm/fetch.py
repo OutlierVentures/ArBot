@@ -17,13 +17,16 @@ class FetchAgent(OEFAgent):
         oef = '127.0.0.1'
         OEFAgent.__init__(self, public_key = 'DataBridge', oef_addr = oef, oef_port = 10000)
         self.open_proposals = []
+        self.search = []
         
-    def fetch_search(self, terms: str):
+    def fetch_search(self, terms):
         # Reject any old proposals and reset for a new set of proposals
         self.try_respond_n(self.open_proposals, False)
         self.open_proposals = []
         self.save_path = ''
+        self.search = []
         search_terms = terms.split(' ')
+        self.search = search_terms
         query_array = []
         for term in search_terms:
             query_array.append(Constraint(term, NotEq('')))
@@ -125,10 +128,14 @@ class FetchAgent(OEFAgent):
         for i, p in enumerate(proposals):
             print('[{0}]: Proposal {1}: {2}'.format(self.public_key, i, p.values))
             proposal = {
+                'categories': self.search,
                 'price': abs(int(p.values['price'])),
-                'origin': origin,
-                'msg_id': msg_id,
-                'dialogue_id': dialogue_id
+                'network': 'fetch',
+                'ids': {
+                    'origin': origin,
+                    'msg_id': msg_id,
+                    'dialogue_id': dialogue_id
+                }
             }
             these_proposals.append(proposal)
         sorted_proposals = sorted(these_proposals, key = lambda k: k['price'])
@@ -150,12 +157,13 @@ class FetchAgent(OEFAgent):
         index = 0
         for proposal in proposals:
             try:
+                ids = proposal['ids']
                 if is_accept:
-                    self.send_accept(proposal['msg_id'], proposal['dialogue_id'], proposal['origin'], proposal['msg_id'] + 1)
-                    print('Accepting proposal from ' + proposal['origin'])
+                    self.send_accept(ids['msg_id'], ids['dialogue_id'], ids['origin'], ids['msg_id'] + 1)
+                    print('Accepting proposal from ' + ids['origin'])
                 else:
-                    self.send_decline(proposal['msg_id'], proposal['dialogue_id'], proposal['origin'], proposal['msg_id'] + 1)
-                    print('Declining proposal from ' + proposal['origin'])
+                    self.send_decline(ids['msg_id'], ids['dialogue_id'], ids['origin'], ids['msg_id'] + 1)
+                    print('Declining proposal from ' + ids['origin'])
             except Exception as e:
                 fail_count += 1
                 print('Failed to respond to proposal from ' + str(index))
