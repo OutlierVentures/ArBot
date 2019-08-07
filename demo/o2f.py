@@ -15,7 +15,7 @@ oa.ocean_publish(name = 'Iris Dataset',
                  license = 'CCO: Public Domain',
                  tags = ['flowers', 'classification', 'plants'])
 results = oa.ocean_search('flowers')
-first_result_ddo = results[0]['ddo']
+first_result_ddo = results[0]['ids']['ddo']
 path_to_data, _ = oa.ocean_consume(first_result_ddo)
 
 fa = FetchAgent()
