@@ -9,7 +9,10 @@
 
 ## Requirements and Install
 
-Requires Linux or MacOS and Docker.
+Requires:
+- Linux or MacOS
+- Docker
+- Latest `protobuf`: install binary [from source](https://github.com/protocolbuffers/protobuf/releases)
 
 Install: `pip3 install .`
 
