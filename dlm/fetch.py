@@ -16,6 +16,8 @@ class FetchAgent(OEFAgent):
         '''
         oef = '127.0.0.1'
         OEFAgent.__init__(self, public_key = 'DataBridge', oef_addr = oef, oef_port = 10000)
+        self.data = {}
+        self.price = 0
         self.open_proposals = []
         self.search = []
         
