@@ -3,6 +3,8 @@ from dlm.fetch import FetchAgent
 from dlm.ocean import OceanAgent
 import pytest, threading, time, os
 
+live = True if os.getenv('NET', '') == 'MAIN' or os.getenv('NET', '') == 'TEST' else False
+
 meta = {
     'base': {
         'name': 'Iris Dataset',
@@ -22,6 +24,7 @@ def test_get_usd_value():
     with pytest.raises(KeyError):
         ab.get_usd_value('fetchai')
 
+@pytest.mark.skipif('live')
 def test_arb():   
     thread_one = threading.Thread(target = run_fetch_agent())
     thread_two = threading.Thread(target = run_ocean_agent())

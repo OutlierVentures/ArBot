@@ -5,6 +5,8 @@ from unittest.mock import MagicMock
 from typing import List
 import pytest, json, os
 
+live = True if os.getenv('NET', '') == 'MAIN' or os.getenv('NET', '') == 'TEST' else False
+
 meta = {
     'base': {
         'name': 'Iris Dataset',
@@ -49,6 +51,7 @@ def test_on_message():
     os.remove(fa.save_path)
     fa.save_path = ''
 
+@pytest.mark.skipif('live')
 @online
 def test_fetch_publish():
     data = meta['base']
@@ -58,6 +61,7 @@ def test_fetch_publish():
                             data_path,
                             data['tags'])
 
+@pytest.mark.skipif('live')
 @online
 def test_fetch_publish_from_ocean_meta():
     assert fa.fetch_publish_from_ocean_meta(meta, 0, data_path)
@@ -73,10 +77,7 @@ def test_on_accept():
 def test_on_decline():
     fa.on_decline(2, 0, mock_counterparty, 2)
 
-'''
-Note that the OEF module handles the negotiation testing underneath.
-For an example negotiation take a look at the demo files o2f.py and f2o.py.
-'''
+@pytest.mark.skipif('live')
 @online
 def test_fetch_search():
     fa.fetch_search('flowers')  
@@ -101,6 +102,7 @@ def test_try_respond_n():
     assert fa.try_respond_n(mock_open_proposals, False)
     assert not fa.try_respond_n('biscuit', True)
 
+@pytest.mark.skipif('live')
 @online
 def test_fetch_consume():
     fa.open_proposals = mock_open_proposals
