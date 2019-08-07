@@ -6,7 +6,7 @@ setup(
     description='Data Liquidity Module: Web 3.0 data liquidity with Fetch.AI and Ocean Protocol. Requires a running Ocean Protocol and Fetch.AI node.',
     license='Apache License 2.0',
     packages=['dlm'],
-    install_requires=['oef', 'fetchai-ledger-api', 'squid-py', 'pytest'],
+    install_requires=['oef', 'fetchai-ledger-api', 'squid-py', 'pycoingecko', 'pytest'],
     author='Theo Turner',
     author_email='theo@outlierventures.io',
     keywords=['blockchain', 'web3', 'crypto', 'cryptocurrency', 'data', 'liquidity', 'fetchai', 'ocean'],
