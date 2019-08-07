@@ -45,6 +45,9 @@ class OceanAgent(Ocean):
 
     def ocean_publish(self, name, description, price, url, license, tags = ['outlier ventures']):
         account = self.ocean_get_account()
+        if not Utils.site_exists(url):
+            print('URL not reachable. Please host your dataset and approve this machine\'s IP.')
+            return
         metadata = {
             'base': {
                 'name': name,
