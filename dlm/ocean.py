@@ -28,7 +28,8 @@ class OceanAgent(Ocean):
                 }
             }
             assets.append(asset)
-        return assets
+        sorted_assets = sorted(assets, key = lambda k: k['price'])
+        return sorted_assets
     
     def ocean_consume(self, ddo):
         service_agreement_id = self.assets.order(ddo.did, "Access", self.ocean_get_account())
