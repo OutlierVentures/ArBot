@@ -31,7 +31,7 @@ cd ../oef-mt-core
 bazel run mt-core/main/src/cpp:app -- --config_file `pwd`/mt-core/main/src/cpp/config.json &> /dev/null &
 
 cd ../barge
-./start_ocean.sh --latest --no-pleuston --no-aquarius --no-brizo --no-secret-store --no-faucet --local-$ocean-node --force-pull &> /dev/null &
+./start_ocean.sh --latest --no-pleuston --no-brizo --local-$ocean-node --force-pull &> /dev/null &
 
 while [ "$id" != "" ]; do
     id=$(docker container ls | grep ocean_ | awk '{print $1}')
@@ -48,5 +48,7 @@ until docker cp ocean_keeper-contracts_1:/keeper-contracts/artifacts/. artifacts
 do
     sleep 5
 done
+# Give Ocean enough time to boot
+sleep 10
 
 echo -e "${ongreen}Nodes started.$endcolor"
