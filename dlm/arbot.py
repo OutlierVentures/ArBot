@@ -15,7 +15,6 @@ class ArBot(FetchAgent, OceanAgent, CoinGeckoAPI):
 
     # Path to webserver root is the base path under which your datasets will be hosted.
     def arb(self, terms):
-        terms = terms.split(' ')
         ocean_prices = self.ocean_search(terms)
         self.fetch_search(terms)
         fetch_prices = self.fetch_get_search_results()
