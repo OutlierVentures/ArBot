@@ -6,6 +6,14 @@
     <i>An app in the Convergence Stack.</i>
 </p>
 
+## Components
+
+1. FetchAgent / OceanAgent: push / pull data agents, allowing data onboarding from Fetch to Ocean and vice versa.
+2. ArBot: Automated triangular arbitrage with Fetch.AI tokens, Ocean tokens and data. The software executes in cases where the highest bidder on Fetch pays more than the lowest cost of the dataset on Ocean and vice versa.
+
+<p align="center">
+    <img src="./img/dlm_stack.png" width="550" />
+</p>
 
 ## Requirements
 
@@ -17,7 +25,6 @@
 
 ```
 pip3 install .
-pytest
 ```
 
 ## Usage
@@ -31,13 +38,18 @@ Then use any of the following as appropriate:
 ./get_nodes.sh
 ./start_nodes.sh
 ./stop_nodes.sh
+./delete_nodes.sh
 ```
 These need to be run from the `nodes` folder.
 
-**Note that for publishing on Ocean, which is a requirement of the data arbitrage component, you will need to host your own data. This means spinning up a webserver with a publicly accessible URL - see any function arguments marked URL. The simplest solution is a [plain nginx server](https://nginxconfig.io/?0.index=index.html&0.fallback_html), just hosting any sets at the top level.**
+**Note that for publishing on Ocean, which is a requirement of the data arbitrage component, you will need to host your own data. This means spinning up a webserver with a publicly accessible URL - see any function arguments marked URL. The simplest solution is a [plain nginx server](https://nginxconfig.io/?0.index=index.html&0.fallback_html), hosting any datasets at the top level.**
 
-Fetch-side publishing demands JSON-formatted sets.
+**Also note that Fetch-side publishing demands JSON-formatted sets, but the node will handle hosting and data transfer for you.**
 
+Once nodes are running, test your install from the root folder:
+```
+pytest
+```
 
 ### Ocean Protocol to Fetch.AI
 
@@ -119,14 +131,6 @@ By default all components will run locally.
 
 Use the environment variable `NET`, setting it to `TEST` or `MAIN` as needed.
 
-## Components
-
-1. FetchAgent / OceanAgent: push / pull data agents, allowing data onboarding from Fetch to Ocean and vice versa.
-2. ArBot: Automated triangular arbitrage with Fetch.AI tokens, Ocean tokens and data. The software executes in cases where the highest bidder on Fetch pays more than the lowest cost of the dataset on Ocean and vice versa.
-
-<p align="center">
-    <img src="./img/dlm_stack.png" width="550" />
-</p>
 
 ## Debugging
 
