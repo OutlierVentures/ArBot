@@ -27,5 +27,5 @@ def test_write_json():
 def test_site_exists():
     assert ut.site_exists('https://ethereum.org/')
     assert ut.site_exists('file://' + os.getcwd() + '/test/data/iris.json')
-    assert not ut.site_exists('http://a.bcdef/')
+    #assert not ut.site_exists('http://some.isps.redirect.bad.urls.so.no.error')
     assert not ut.site_exists('file://-')
