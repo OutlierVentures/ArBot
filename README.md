@@ -134,6 +134,8 @@ Run `pytest` with both nodes running to test. Ensure
 
 `secret_store_client.client.RPCError: Failed to generate server key: Bad Gateway`: the Ocean node is still spinning up. Wait a few minutes.
 
+`requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=8545): Max retries exceeded with url`: as above.
+
 `struct.error: unpack requires a buffer of 4 bytes`: Intermittent OEF issue - restart your OEF node. If using the included scripts:
 ```
 cd nodes
