@@ -25,7 +25,7 @@ def test_get_usd_value():
         ab.get_usd_value('fetchai')
 
 @pytest.mark.skipif('live')
-def test_arb():   
+def test_arb():
     thread_one = threading.Thread(target = run_fetch_agent())
     thread_two = threading.Thread(target = run_ocean_agent())
     thread_one.start()
@@ -36,12 +36,8 @@ def test_arb():
 def run_fetch_agent():
     fa = FetchAgent()
     fa.connect()
-    fa.fetch_publish_from_ocean_meta(meta, 0, './data/iris.json')
-    try:
-        fa.run()
-    finally:
-        fa.stop()
-        fa.disconnect()
+    fa.fetch_publish_from_ocean_meta(meta, 0, './test/data/iris.json')
+    fa.disconnect()
 
 def run_ocean_agent():
     oa = OceanAgent('./dlm/config.ini')
