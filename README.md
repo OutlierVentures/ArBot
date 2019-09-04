@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="./img/dlm_logo.png" width="200" />
+    <img src="./img/logo.png" width="550" />
     <br><br>
     Arb datasets between data marketplaces.<br>
     Bridges Fetch.AI and Ocean Protocol.<br><br>
@@ -12,7 +12,7 @@
 2. ArBot: Automated triangular arbitrage with Fetch.AI tokens, Ocean tokens and data. The software executes in cases where the highest bidder on Fetch pays more than the lowest cost of the dataset on Ocean and vice versa.
 
 <p align="center">
-    <img src="./img/dlm_stack.png" width="550" />
+    <img src="./img/stack.png" width="550" />
 </p>
 
 ## Requirements
