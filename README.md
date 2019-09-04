@@ -1,8 +1,8 @@
 <p align="center">
     <img src="./img/dlm_logo.png" width="200" />
     <br><br>
-    Move datasets between Fetch.AI and Ocean Protocol.<br>
-    Earn tokens from arbitrage with datasets.<br><br>
+    Arb datasets between data marketplaces.<br>
+    Bridges Fetch.AI and Ocean Protocol.<br><br>
     <i>An app in the Convergence Stack.</i>
 </p>
 
@@ -134,7 +134,7 @@ Use the environment variable `NET`, setting it to `TEST` or `MAIN` as needed.
 
 ## Debugging
 
-Run `pytest` with both nodes running to test. Ensure
+Run `pytest` with both nodes running to test.
 
 `secret_store_client.client.RPCError: Failed to generate server key: Bad Gateway`: the Ocean node is still spinning up. Wait a few minutes.
 
