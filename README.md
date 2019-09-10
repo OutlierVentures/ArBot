@@ -110,6 +110,15 @@ ab = ArBot('/path/to/ocean/config.ini', '/path/to/webserver/root', 'https://your
 ab.arb('iris categorical')
 ```
 
+### Managing arbitrage risk with specificity
+
+The key parameter for executing execution risk in data arbitrage is specificity. By limiting ArBot’s search space, we get stronger guarantees that the consumer it is selling to is receiving what they expect. Thus, specificity allows users of ArBot to choose their own appetite for risk. At low levels of specificity, there is a high risk that the consumer will reject the dataset offering, but there are far more opportunities available. At high levels of specificity, there are fewer opportunities, but the consumer is much more likely to buy.
+
+An example of a high-risk strategy for ArBot is feeding it the query ‘daffodil flowers.’ There may be a seller of data labelled daffodil flowers on Ocean Protocol and a buyer looking for daffodil flowers on Fetch.AI, however their uses for the data might be different. The seller could be in possession of art, and the buyer may want to train their flower-identifying AI with many pictures of daffodils. In this case, provided the seller’s price is lower than the buyer’s (factoring in network fees), ArBot will take the risk of the buyer not wanting to follow through with the transaction. The benefit of this strategy, however, is that there will likely be a multitude of results for the query daffodil flowers, many of which will result in successful arbitrage.
+
+In contrast, a low-risk strategy would be to feed ArBot the query ‘1000 daffodil flowers classification AI dataset.’ In this case, there will likely be few results, however the buyer and seller likely refer to the exact same thing. With a low-risk strategy, the probability of failed arbitrage is low.
+
+
 ### Examples
 
 See the `demo` folder for some super simple examples.
