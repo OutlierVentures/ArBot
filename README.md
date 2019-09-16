@@ -1,5 +1,17 @@
 <p align="center">
     <img src="./img/logo.png" width="550" />
+    <a href="https://github.com/fetchai" alt="Fetch.AI">
+        <img src="./img/fetch.svg" />
+    </a>
+    <a href="https://github.com/oceanprotocol" alt="Ocean Protocol">
+        <img src="./img/ocean.svg" />
+    </a>
+    <a href="https://github.com/ArBot/dlm" alt="Arbitrage">
+        <img src="./img/arb.svg" />
+    </a>
+    <a href="https://outlierventures.io" alt="Convergence ready">
+        <img src="./img/convergence.svg" />
+    </a>
     <br><br>
     Arb datasets between data marketplaces.<br>
     Bridges Fetch.AI and Ocean Protocol.<br><br>
