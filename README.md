@@ -1,5 +1,6 @@
 <p align="center">
     <img src="./img/logo.png" width="550" />
+    <br><br>
     <a href="https://github.com/fetchai" alt="Fetch.AI">
         <img src="./img/fetch.svg" />
     </a>
